@@ -13,7 +13,7 @@ export async function before(m, {
         let sim = similarity(noPrefix, mean)
         let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? this.user.jid : m.sender
         let name = await this.getName(who)
-        let caption = `👋 Hai ${name.split('\n')[0]}\n( @${who.split("@")[0].split('\n')[0]} )\n\nApakah yang kamu maksud:\n*${usedPrefix + mean.split(' ')[0]}*\n\nSimilarity:\n*${Number(sim * 100).toFixed(2)}%*`
+        let caption = `👋 Hai ${name.split('\n')[0]}\n( @${who.split("@")[0].split('\n')[0]} )\n\nApakah yang kamu maksud:\n*${usedPrefix + mean}*\n\nSimilarity:\n*${Number(sim * 100).toFixed(2)}%*`
         /* Button Section */
         if (mean) this.sendMessage(m.chat, { text: caption, mentions: this.parseMention(caption) }, { quoted: m })
     }
