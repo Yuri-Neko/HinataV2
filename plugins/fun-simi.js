@@ -5,7 +5,7 @@ let handler = async (m, { conn, text, command, args }) => {
   let urut = text.split`|`
   let one = urut[1]
   if (one) {
-  let api = await fetch("http://api.brainshop.ai/get?bid=153868&key=rcKonOgrUFmn5usX&uid=1&msg=" + encodeURIComponent(text))
+  let api = await fetch("http://api.brainshop.ai/get?bid=153868&key=rcKonOgrUFmn5usX&uid=1&msg=" + encodeURIComponent(one))
   let res = await api.json()
   let reis = await fetch("https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=id&dt=t&q=" + res.cnt)
   let resu = await reis.json()

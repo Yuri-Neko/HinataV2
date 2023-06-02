@@ -13,7 +13,7 @@ await m.reply(wait)
 try {
 // Contoh penggunaan
 let result = await gptBaby(text)
-await m.reply(result.content)
+await m.reply(convertNewline(result.content))
 } catch (e) {
 await m.reply(eror)
 }
@@ -22,6 +22,11 @@ handler.help = ["gptbaby"]
 handler.tags = ["internet"]
 handler.command = /^(gptbaby)$/i
 export default handler
+
+function convertNewline(output) {
+  const convertedOutput = output.replace(/\\n/g, '\n');
+  return convertedOutput;
+}
 
 /* New Line */
 async function gptBaby(your_qus) {

@@ -14,7 +14,7 @@ try {
 // Contoh penggunaan
 let input = await gptGo(text)
 let result = input.content
-await m.reply(result)
+await m.reply(convertNewline(result))
 } catch (e) {
 await m.reply(eror)
 }
@@ -23,6 +23,11 @@ handler.help = ["gptgo"]
 handler.tags = ["internet"]
 handler.command = /^(gptgo)$/i
 export default handler
+
+function convertNewline(output) {
+  const convertedOutput = output.replace(/\\n/g, '\n');
+  return convertedOutput;
+}
 
 /* New Line */
 async function gptGo(query) {
