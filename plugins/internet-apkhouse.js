@@ -25,15 +25,14 @@ let handler = async (m, {
             try {
                 let res = await searchApkhouse(inputs)
                 let teks = res.map((item, index) => {
-                    return `*[ RESULT ${index + 1} ]*
+                    return `🔍 *[ RESULT ${index + 1} ]*
 
-*Url:* ${item.href}
-*Image:* ${item.imageSrc}
-*Title:* ${item.title}
-*Developer:* ${item.developer}
-*Version:* ${item.version}
-*Rating:* ${item.rating}
-`
+🔗 *Url:* ${item.href}
+🖼️ *Image:* ${item.imageSrc}
+📰 *Title:* ${item.title}
+👩‍💻 *Developer:* ${item.developer}
+🔢 *Version:* ${item.version}
+⭐️ *Rating:* ${item.rating}`
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)
             } catch (e) {

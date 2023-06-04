@@ -25,14 +25,14 @@ let handler = async (m, {
             try {
                 let res = await searchModded(inputs)
                 let teks = res.map((item, index) => {
-                    return `*[ RESULT ${index + 1} ]*
+                    return `🔍 *[ RESULT ${index + 1} ]*
 
-*Title:* ${item.title}
-*Url:* ${item.url}
-*Thumb:* ${item.iconUrl}
-*Meta:* ${item.meta}
-*Categories:* ${item.categories}
-`
+📰 *Title:* ${item.title}
+🔗 *Url:* ${item.url}
+🖼️ *Thumb:* ${item.iconUrl}
+📋 *Meta:* ${item.meta}
+📚 *Categories:* ${item.categories}`
+
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)
             } catch (e) {

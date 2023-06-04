@@ -25,14 +25,14 @@ let handler = async (m, {
             try {
                 let res = await searchApkgod(inputs)
                 let teks = res.map((item, index) => {
-                    return `*[ RESULT ${index + 1} ]*
+                    return `🔍 *[ RESULT ${index + 1} ]*
 
-*Url:* ${item.link}
-*Title:* ${item.title}
-*Image:* ${item.image}
-*Tags:* ${item.tags}
-*Version:* ${item.version}
-`
+🔗 *Url:* ${item.link}
+📰 *Title:* ${item.title}
+🖼️ *Image:* ${item.image}
+🏷️ *Tags:* ${item.tags}
+🔢 *Version:* ${item.version}`
+
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)
             } catch (e) {

@@ -7,17 +7,21 @@ let name = await conn.getName(who)
 	if (!text) throw 'Input Query'
 	let res = await gplay.search({ term: text })
 	if (!res.length) throw `Query "${text}" not found :/`
-	let row = Object.values(res).map((v, index) => ({
-		title: index + ' ' + v.title,
-		description: '\n*title:* ' + v.title + '\n*developer:* ' + v.developer + '\n*score:* ' + v.score + '\n*scoreText:* ' + v.scoreText + '\n*priceText:* ' + v.priceText + '\n*appId:* ' + v.appId + '\n*summary:* ' + v.summary + '\n*url:* ' + v.url + '\n*icon:* ' + v.icon + '\n*free:* ' + v.free,
-		rowId: usedPrefix + 'apkdl ' + v.url
-	}))
-	let button = {
-		buttonText: '☂️ Result Disini ☂️',
-		description: `⚡ Hai ${name}, Silakan pilih ${command} Search di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`,
-		footerText: wm
-	}
-	return conn.sendListM(m.chat, button, row, m)
+	let teks = res.map((item, index) => {
+                    return `🔍 *[ RESULT ${index + 1} ]*
+
+📰 *title:* ${v.title}
+👩‍💻 *developer:* ${v.developer}
+⭐️ *score:* ${v.score}
+💬 *scoreText:* ${v.scoreText}
+💲 *priceText:* ${v.priceText}
+🆔 *appId:* ${v.appId}
+📝 *summary:* ${v.summary}
+🔗 *url:* ${v.url}
+🖼️ *icon:* ${v.icon}
+💰 *free:* ${v.free}`
+                }).filter(v => v).join("\n\n________________________\n\n")
+                await m.reply(teks)
 }
 handler.help = ['apksearch']
 handler.tags = ['tools']

@@ -1,16 +1,18 @@
 import fetch from "node-fetch"
 import uploadImage from "../lib/uploadImage.js"
-import { ArtEnhance } from "../lib/art-enhance.js"
+const { NeoxrApi } = await(await import('../lib/neoxr.js'))
 import fs from "fs"
 
 let handler = async (m, { conn }) => {
 	let q = m.quoted ? m.quoted : m
 	let mime = (q.msg || q).mimetype || ''
-	if (/image/.test(mime)) {
+	if (/image/g.test(mime) && !/webp/g.test(mime)) {
 		await m.reply(wait)
-		let media = await q.download()
-		let sauce = await ArtEnhance(await uploadImage(media), "3a4886dd3230e523600d3b555f651dc82aba3a4e")
-		await conn.sendFile(m.chat, sauce, null, '', m)
+		let img = await q.download?.()
+			let out = await uploadImage(img)
+let neo = new NeoxrApi('kyaOnechan')
+let sauce = await neo.remini(out)
+		await conn.sendFile(m.chat, sauce.data.url, null, '', m)
 	} else throw 'Reply imagenya'
 }
 handler.help = ["remini"]

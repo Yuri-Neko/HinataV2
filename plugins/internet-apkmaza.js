@@ -25,14 +25,13 @@ let handler = async (m, {
             try {
                 let res = await searchApkmaza(inputs)
                 let teks = res.map((item, index) => {
-                    return `*[ RESULT ${index + 1} ]*
-*Title:* ${item.title}
-*Link:* ${item.link}
-*Image:* ${item.imageSrc}
-*Version:* ${item.version}
-*Category:* ${item.category}
-*Description:* ${item.description}
-`
+                    return `🔍 *[ RESULT ${index + 1} ]*
+📰 *Title:* ${item.title}
+🔗 *Link:* ${item.link}
+🖼️ *Image:* ${item.imageSrc}
+🔢 *Version:* ${item.version}
+🗂️ *Category:* ${item.category}
+📝 *Description:* ${item.description}`
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)
             } catch (e) {

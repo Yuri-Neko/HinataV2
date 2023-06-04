@@ -25,18 +25,18 @@ let handler = async (m, {
             try {
                 let res = await searchApk4free(inputs)
                 let teks = res.map((item, index) => {
-                    return `*[ RESULT ${index + 1} ]*
+                    return `🔍 *[ RESULT ${index + 1} ]*
 
-*item.title:* ${item.title}
-*url:* ${item.url}
-*thumbnail:* ${item.thumbnail}
-*category:* ${item.category}
-*tag:* ${item.tag}
-*description:* ${item.description}
-*author name:* ${item.author.name}
-*author image:* ${item.author.image}
-*author count:* ${item.author.count}
-`
+📰 *Title:* ${item.title}
+🔗 *Url:* ${item.url}
+🖼️ *Thumbnail:* ${item.thumbnail}
+📌 *Category:* ${item.category}
+🏷️ *Tag:* ${item.tag}
+📝 *Description:* ${item.description}
+👤 *Author Name:* ${item.author.name}
+🖼️ *Author Image:* ${item.author.image}
+👥 *Author Count:* ${item.author.count}`
+
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)
             } catch (e) {

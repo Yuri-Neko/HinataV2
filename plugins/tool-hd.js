@@ -1,7 +1,10 @@
 import uploadImage from '../lib/uploadImage.js'
-import fs from 'fs'
+import fetch from "node-fetch"
+import uploadImage from "../lib/uploadImage.js"
+import { ArtEnhance } from "../lib/art-enhance.js"
+import fs from "fs"
+
 import deepai from 'deepai'
-import fetch from 'node-fetch'
 
 deepai.setApiKey('04f02780-e0bd-44c1-afa2-14cf5a78948c')
 
@@ -10,7 +13,13 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     let mime = (q.msg || q).mimetype || q.mediaType || ''
     if (/image/g.test(mime) && !/webp/g.test(mime)) {
     	try {
-			let img = await q.download?.()
+			
+            let media = await q.download()
+		let sauce = await ArtEnhance(await uploadImage(media), "3a4886dd3230e523600d3b555f651dc82aba3a4e")
+		await conn.sendFile(m.chat, sauce, null, '', m)
+    	} catch (e) {
+    	try {
+    	let img = await q.download?.()
 			let out = await uploadImage(img)
 			var resp = await deepai.callStandardApi("waifu2x", {
                         image: out,
@@ -25,11 +34,13 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
             image: w2x2,
             })
             await conn.sendFile(m.chat, resup['output_url'], 'simpcard.png', 'simp', m)
-    	} catch (e) {
-    		console.log(e)
+            
+    		} catch (e) {
+    		await m.reply(eror)
+    		}
     	}
     } else {
-    	m.reply(`Kirim gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim`)
+    	await m.reply(`Kirim gambar dengan caption *${usedPrefix + command}* atau tag gambar yang sudah dikirim`)
     }
 }
 handler.help = ['hd', 'enhance']

@@ -30,10 +30,9 @@ let handler = async (m, {
             try {
                 let res = await apkdl.search(inputs)
                 let teks = res.map((item, index) => {
-                    return `*[ RESULT ${index + 1} ]*
-*Title:* ${item.name}
-*Url:* ${item.link}
-`
+                    return `🔍 *[ RESULT ${index + 1} ]*
+📰 *Title:* ${item.name}
+🔗 *Url:* ${item.link}`
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)
             } catch (e) {

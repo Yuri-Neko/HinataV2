@@ -25,19 +25,19 @@ let handler = async (m, {
             try {
                 let res = await searchapkpures(inputs)
                 let teks = res.map((item, index) => {
-                    return `*[ RESULT ${index + 1} ]*
+                    return `🔍 *[ RESULT ${index + 1} ]*
 
-*link:* ${item.link}
-*linkdl:* https://d.apkpure.com/b/APK/${item.link.split("/")[5]}?version=latest
-*image:* ${item.image}
-*name:* ${item.name}
-*developer:* ${item.developer}
-*tags:* ${item.tags}
-*downloadLink:* ${item.downloadLink}
-*fileSize:* ${item.fileSize}
-*version:* ${item.version}
-*versionCode:* ${item.versionCode}
-`
+🔗 *link:* ${item.link}
+🔗 *linkdl:* https://d.apkpure.com/b/APK/${item.link.split("/")[5]}?version=latest
+🖼️ *image:* ${item.image}
+📰 *name:* ${item.name}
+👩‍💻 *developer:* ${item.developer}
+🏷️ *tags:* ${item.tags}
+⬇️ *downloadLink:* ${item.downloadLink}
+📦 *fileSize:* ${item.fileSize}
+🔢 *version:* ${item.version}
+🔢 *versionCode:* ${item.versionCode}`
+
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)
             } catch (e) {

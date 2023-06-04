@@ -25,15 +25,16 @@ let handler = async (m, {
             try {
                 let res = await searchGetmodsapk(inputs)
                 let teks = res.map((item, index) => {
-                    return `*[ RESULT ${index + 1} ]*
-*Title:* ${item.title}
-*Url:* ${item.url}
-*Image:* ${item.image}
-*Label:* ${item.label}
-*Category:* ${item.category}
-*Version:* ${item.version}
-*Size:* ${item.size}
-`
+                    return `🔍 *[ RESULT ${index + 1} ]*
+
+📰 *Title:* ${item.title}
+🔗 *Url:* ${item.url}
+🖼️ *Image:* ${item.image}
+🏷️ *Label:* ${item.label}
+🗂️ *Category:* ${item.category}
+🔢 *Version:* ${item.version}
+📏 *Size:* ${item.size}`
+
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)
             } catch (e) {

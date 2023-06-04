@@ -25,13 +25,12 @@ let handler = async (m, {
             try {
                 let res = await searchApkhome(inputs)
                 let teks = res.map((item, index) => {
-                    return `*[ RESULT ${index + 1} ]*
+                    return `🔍 *[ RESULT ${index + 1} ]*
 
-*Title:* ${item.title}
-*Url:* ${item.href}
-*Thumb:* ${item.imageSrc}
-*Edition:* ${item.edition}
-`
+📰 *Title:* ${item.title}
+🔗 *Url:* ${item.href}
+🖼️ *Thumb:* ${item.imageSrc}
+📆 *Edition:* ${item.edition}`
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)
             } catch (e) {
