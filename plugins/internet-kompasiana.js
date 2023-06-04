@@ -5,7 +5,7 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 
     let lister = [
         "search",
-        "get"
+        "info"
     ]
     
     let [feature, inputs, inputs_, inputs__, inputs___] = text.split("|")
@@ -19,16 +19,17 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
             try {
                 let res = await searchArticles(inputs)
                 let teks = res.map((v, index) => {
-                    return `*[ ${index + 1} ]*
-*author:* ${v.author}
-*author_url:* ${v.author_url}
-*date:* ${v.date}
-*title:* ${v.title}
-*url:* ${v.url}
-*tags:* ${v.tags}
-*views:* ${v.views}
-*likes:* ${v.likes}
-*comments:* ${v.comments}
+                    return `*[ RESULT ${index + 1} ]*
+
+👤 Author: ${v.author}
+🔗 Author url: ${v.author_url}
+📅 Date: ${v.date}
+📝 Title: ${v.title}
+🔗 URL: ${v.url}
+🏷️ Tags: ${v.tags}
+👀 Views: ${v.views}
+👍 Likes: ${v.likes}
+💬 Comments: ${v.comments}
    `.trim()
                 }).filter(v => v).join("\n\n________________________\n\n")
                 
@@ -38,7 +39,7 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
             }
         }
 
-        if (feature == "get") {
+        if (feature == "info") {
             if (!validateURL(inputs)) return m.reply("Input query link\nExample: .kompasiana get|https://www.kompasiana.com/xxxxx")
             await m.reply(wait)
             try {

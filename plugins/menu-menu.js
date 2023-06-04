@@ -1,4 +1,8 @@
 /* Recode Wudysoft */
+import {
+    generateWAMessageFromContent
+} from "@adiwajshing/baileys"
+
 let handler = async (m, {
     conn,
     groupMetadata,
@@ -7,7 +11,7 @@ let handler = async (m, {
 }) => {
     await conn.sendMessage(m.chat, {
         react: {
-            text: "⏳",
+            text: "⚡",
             key: m.key,
         }
     })
@@ -92,11 +96,11 @@ let handler = async (m, {
     var vn = "https://raw.githubusercontent.com/AyGemuy/HAORI-API/main/audio/" + soun + ".mp3"
     var gamb = [
         thumb,
-        giflogo,
         logo
     ].getRandom()
 
-    var cap = "👋 *Selamat datang di dashboard bot kami!*\n\n- Kami berharap Anda akan menikmati pengalaman berinteraksi dengan bot kami yang ramah dan intuitif.\n" + readMore + "\n- Kami telah menyertakan berbagai fitur yang dapat membantu Anda mengelola dan meningkatkan kinerja bot Anda.\n\n- Kami berharap Anda akan menikmati menggunakan dashboard bot kami dan semoga Anda mendapatkan manfaat dari fitur-fitur yang kami tawarkan."
+    var cap = "👋 *Selamat datang di dashboard bot kami!*\n\n- Kami berharap Anda akan menikmati pengalaman berinteraksi dengan bot kami yang ramah dan intuitif.\n" + readMore + "\n- Kami telah menyertakan berbagai fitur yang dapat membantu Anda mengelola dan meningkatkan kinerja bot Anda.\n\n- Kami berharap Anda akan menikmati menggunakan dashboard bot kami dan semoga Anda mendapatkan manfaat dari fitur-fitur yang kami tawarkan.\n\n*[ LIST MENU ]*\n" + usedPrefix + "menulist\n" + usedPrefix + "allmenu\n"
+    /*
     await conn.sendButton(m.chat, cap, author, gamb, [
         [emojis + " All Menu", usedPrefix + "allmenu"],
         [emojis + " List Menu", usedPrefix + "menulist"]
@@ -104,8 +108,37 @@ let handler = async (m, {
     // Biasa
         let biasa = "_Ketik *.menubiasa* jika menu tidak muncul_"
         await conn.sendMessage(m.chat, { text: biasa }, { quoted: m })
-        
-    await conn.sendMessage(m.chat, {
+    */
+    
+        let mthumb = await (await conn.getFile(logo)).data
+        let msg = await generateWAMessageFromContent(m.chat, {
+            extendedTextMessage: {
+                text: cap,
+                jpegThumbnail: mthumb,
+                contextInfo: {
+                    mentionedJid: [m.sender],
+                    externalAdReply: {
+                        body: author,
+                        containsAutoReply: true,
+                        mediaType: 1,
+                        mediaUrl: sgh,
+                        renderLargerThumbnail: true,
+                        showAdAttribution: true,
+                        sourceId: "WudySoft",
+                        sourceType: "PDF",
+                        previewType: "PDF",
+                        sourceUrl: sgh,
+                        thumbnail: mthumb,
+                        thumbnailUrl: logo,
+                        title: htki + " M E N U - B O T " + htka
+                    }
+                }
+            }
+        }, {
+            quoted: m
+        })
+        await conn.relayMessage(m.chat, msg.message, {})
+        await conn.sendMessage(m.chat, {
         audio: {
             url: vn
         },
@@ -117,12 +150,7 @@ let handler = async (m, {
     }, {
         quoted: m
     })
-    await conn.sendMessage(m.chat, {
-        react: {
-            text: "⚡",
-            key: m.key,
-        }
-    })
+    
 }
 handler.help = ["menu", "help", "?"]
 handler.tags = ["main"]

@@ -71,7 +71,7 @@ let handler = async (m, {
 }
 handler.help = ["", "earch"].map(v => "yts" + v + " <pencarian>")
 handler.tags = ["tools"]
-handler.command = /^y(outubesearch|ts((biasa)?|earch))$/i
+handler.command = /^y(outubesearch|ts(earch)?)$/i
 export default handler
 
 function formatNumber(number) {

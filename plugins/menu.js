@@ -326,6 +326,7 @@ let handler = async (m, {
         const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => "./src/avatar_contact.png")
 
         //------------------< MENU >----------------
+        /*
         let pusat = ["ke1", "ke2", "ke3", "ke4", "ke5", "ke6"]
         let pilih = pusat.getRandom()
         if (pilih == "ke1") {
@@ -376,7 +377,11 @@ let handler = async (m, {
         // Sound
         var vn = "https://raw.githubusercontent.com/AyGemuy/HAORI-API/main/audio/bot.mp3"
         await conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [100,0,100,0,100,0,100] }, { quoted: m })
+        */
         
+        // Biasa
+        await conn.sendMessage(m.chat, { text: text.trim(), mentions: [m.sender] }, { quoted: m })
+        // Biasa
     } catch (e) {
         await conn.reply(m.chat, "Maaf, menu sedang error", m)
         throw e

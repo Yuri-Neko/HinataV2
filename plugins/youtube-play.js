@@ -13,7 +13,7 @@ var handler = async (m, {
     text,
     usedPrefix
 }) => {
-    if (!text) throw `Use example ${usedPrefix}${command} naruto blue bird`
+    if (!text) throw `Use example *${usedPrefix + command}* naruto blue bird`
     try {
         let vid = await searchAndFilterVideos(text)
         if (!vid) throw "Video Not Found, Try Another Title"
@@ -28,12 +28,11 @@ var handler = async (m, {
         let dla = "Downloading audio please wait"
         let dls = "Downloading audio succes"
 
-        let captvid = `
-*Title:* ${title ? title : 'tidak diketahui'}
-*Duration:* ${timestamp ? timestamp : 'tidak diketahui'}
-*Views:* ${views ? views : 'tidak diketahui'}
-*Upload:* ${ago ? ago : 'tidak diketahui'}
-*Link:* ${url}
+        let captvid = `📺 *Title:* ${title ? title : 'tidak diketahui'}
+⌛ *Duration:* ${timestamp ? timestamp : 'tidak diketahui'}
+👀 *Views:* ${formatNumber(views) ? formatNumber(views) : 'tidak diketahui'}
+📅 *Upload:* ${ago ? ago : 'tidak diketahui'}
+🔗 *Link:* ${url}
 
 ${wait}
 `
@@ -125,6 +124,17 @@ handler.tags = ["downloader"]
 handler.command = /^(play((mp3|mp4|yt))?|ytplay)$/i
 handler.limit = true
 export default handler
+
+function formatNumber(number) {
+  if (number >= 1e9) {
+    return `${(number / 1e9).toFixed(0)}B`;
+  } else if (number >= 1e6) {
+    return `${(number / 1e6).toFixed(0)}M`;
+  } else if (number >= 1e3) {
+    return `${(number / 1e3).toFixed(0)}K`;
+  }
+  return number.toString();
+}
 
 async function searchAndFilterVideos(query, maxResults = 100, similarityThreshold = 0.5) {
     try {

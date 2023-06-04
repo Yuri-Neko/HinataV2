@@ -35,9 +35,9 @@ let handler = async (m, {
             let S = Sv[0].meta
             let SvCap = `${spas}*[ SaveFrom ]*
 
-*📛Source:* ${S.source}
-*📒Title:* ${S.title}
-*📒Duration:* ${S.duration}
+*🔗 Source:* ${S.source}
+*📖 Title:* ${S.title}
+*⏱ Duration:* ${S.duration}
 `
             await conn.sendFile(m.chat, Sv[0].url[0].url, "", SvCap, m)
             } catch (e) {
@@ -53,9 +53,9 @@ let handler = async (m, {
             let S = Sv.meta
             let SvCap = `${spas}*[ SaveFrom ]*
 
-*📛Source:* ${S.source}
-*📒Title:* ${S.title}
-*📒Duration:* ${S.duration}
+*🔗 Source:* ${S.source}
+*📖 Title:* ${S.title}
+*⏱ Duration:* ${S.duration}
 `
             await conn.sendFile(m.chat, Sv.url[0].url, "", SvCap, m)
             } catch (e) {

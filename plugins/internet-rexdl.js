@@ -25,15 +25,15 @@ let handler = async (m, {
             try {
                 let res = await searchRexdl(inputs)
                 let teks = res.map((item, index) => {
-                    return `*[ RESULT ${index + 1} ]*
+                    return `🔍 *[ RESULT ${index + 1} ]*
 
-*Thumbnail:* ${item.thumbnail}
-*Categories:* ${item.categories}
-*Date:* ${item.date}
-*Author:* ${item.author}
-*Title:* ${item.title}
-*Url:* ${item.titleUrl}
-*About:* ${item.excerpt}
+🖼️ *Thumbnail:* ${item.thumbnail}
+🏷️ *Categories:* ${item.categories}
+📅 *Date:* ${item.date}
+👤 *Author:* ${item.author}
+📝 *Title:* ${item.title}
+🔗 *Url:* ${item.titleUrl}
+📖 *About:* ${item.excerpt}
 `
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)
@@ -47,13 +47,13 @@ let handler = async (m, {
             try {
                 let resl = await getRexdl(inputs)
                 
-                let cap = `*Title:* ${resl.info.headingTitle}
-*Version:* ${resl.download.currentVersion}
-*Update:* ${resl.download.updated}
-*Size:* ${resl.download.fileSizeDownload}
-*Password:* ${resl.download.password}
+                let cap = `📝 *Title:* ${resl.info.headingTitle}
+💡 *Version:* ${resl.download.currentVersion}
+🔄 *Update:* ${resl.download.updated}
+📦 *Size:* ${resl.download.fileSizeDownload}
+🔐 *Password:* ${resl.download.password}
 
-*About:* ${resl.info.headingText}
+📖 *About:* ${resl.info.headingText}
 
 ${wait}`
                 await conn.sendFile(m.chat, resl.info.imageData, "", cap, m)

@@ -13,20 +13,14 @@ let handler = async (m, {
     if (validateURL(text)) {
         await m.reply(wait)
         let v = await getMusicmp3(text)
-        let output = `*judul:* ${v.judul}
-*gambar:* ${v.gambar}
-*artis:* ${v.artis}
-*produser:* ${v.produser}
-*kategori:* ${v.kategori}
-*genre:* ${v.genre}
-*album:* ${v.album}
-*tahun_rilis:* ${v.tahun_rilis}
-*durasi:*  ${v.durasi}
-*durasi:* ${v.deskripsi}
-*tautan_unduh:* ${v.tautan_unduh}
-*ukuran_file:* ${v.ukuran_file}
+        let output = `🎵 *Judul:* ${v.judul}
+🖼️ *Gambar:* ${v.gambar}
+📝 *Deskripsi:* ${v.deskripsi}
+🔗 *Tautan Unduh:* ${v.tautan_unduh}
+📦 *Ukuran File:* ${v.ukuran_file}
 `
-        await conn.sendFile(m.chat, v.tautan_unduh, v.judul, output, m, false, {
+        await conn.sendFile(m.chat, v.gambar, "", output, m)
+                        await conn.sendFile(m.chat, v.tautan_unduh, v.judul, "", m, false, {
             asDocument: true
         })
     } else {
@@ -34,12 +28,12 @@ let handler = async (m, {
         try {
             let res = await searchMusicmp3(text)
             let teks = res.map((item, index) => {
-                return `*[ RESULT ${index + 1} ]*
+                return `🔍 *[ RESULT ${index + 1} ]*
 
-*Title:* ${item.title}
-*Url:* ${item.url}
-*Desc:* ${item.desc}
-*Thumb:* ${item.thumb}
+📝 *Title:* ${item.title}
+🔗 *Url:* ${item.url}
+📋 *Desc:* ${item.desc}
+🖼️ *Thumb:* ${item.thumb}
 `
             }).filter(v => v).join("\n\n________________________\n\n")
 

@@ -25,15 +25,15 @@ let handler = async (m, {
             try {
                 let res = await searchRevdl(inputs)
                 let teks = res.map((item, index) => {
-                    return `*[ RESULT ${index + 1} ]*
+                    return `🔍 *[ RESULT ${index + 1} ]*
 
-*title:* ${item.title}
-*titleUrl:* ${item.titleUrl}
-*imageUrl:* ${item.imageUrl}
-*categoryTags:* ${item.categoryTags}
-*postedBy:* ${item.postedBy}
-*postDate:* ${item.postDate}
-*excerpt:* ${item.excerpt}
+📝 *title:* ${item.title}
+🔗 *titleUrl:* ${item.titleUrl}
+🖼️ *imageUrl:* ${item.imageUrl}
+🏷️ *categoryTags:* ${item.categoryTags}
+👤 *postedBy:* ${item.postedBy}
+📅 *postDate:* ${item.postDate}
+📖 *excerpt:* ${item.excerpt}
 `
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)

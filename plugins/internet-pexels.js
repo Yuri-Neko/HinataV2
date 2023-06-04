@@ -16,17 +16,17 @@ let sul = await res.json()
 	Object.values(sul.photos).map((v, index) => {
 		let des = `\n\n
 Original Photo Description
-*ID:* ${v.id}
-*Width:* ${v.width} Original
-*Height:* ${v.height} Original
-*Url:* ${v.url}
-*Photographer:* ${v.photographer}
-*Photographer Url:* ${v.photographer_url}
-*Photographer ID:* ${v.photographer_id}
-*Avg Color:* ${v.avg_color}
-*Liked:* ${v.liked ? v.liked : 'Gak ada'}
-*Alt:* ${v.alt}
-*Url:* ${Object.values(v.src).join('\n\n')}
+🆔 *ID:* ${v.id}
+📏 *Width:* ${v.width} Original
+📐 *Height:* ${v.height} Original
+🔗 *Url:* ${v.url}
+📸 *Photographer:* ${v.photographer}
+🌐 *Photographer Url:* ${v.photographer_url}
+🆔 *Photographer ID:* ${v.photographer_id}
+🎨 *Avg Color:* ${v.avg_color}
+👍 *Liked:* ${v.liked ? v.liked : 'Gak ada'}
+🖼️ *Alt:* ${v.alt}
+🔗 *Url:* ${Object.values(v.src).join('\n\n')}
 `
 	listSections.push([index + ' ' + cmenub + ' ' + v.alt.toUpperCase(), [
           [('original photo').toUpperCase(), usedPrefix + 'get ' + v.src.original, des],

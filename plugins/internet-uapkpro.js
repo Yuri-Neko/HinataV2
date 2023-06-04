@@ -25,13 +25,13 @@ let handler = async (m, {
             try {
                 let res = await searchUapkpro(inputs)
                 let teks = res.map((item, index) => {
-                    return `*[ RESULT ${index + 1} ]*
+                    return `🔍 *[ RESULT ${index + 1} ]*
 
-*Url:* ${item.url}
-*Title:* ${item.title}
-*Downloads:* ${item.downloadUrl}
-*Category:* ${item.category}
-*Rating:* ${item.rating}
+🔗 *Url:* ${item.url}
+📝 *Title:* ${item.title}
+📥 *Downloads:* ${item.downloadUrl}
+🏷️ *Category:* ${item.category}
+⭐ *Rating:* ${item.rating}
 `
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)

@@ -8,17 +8,17 @@ let xx = await f.json()
 let str = xx.result.map((v, index) => {
         return `${1 + index}. *${v.name}*
 
-*${htjava} Price:* *RP* ${v.price}
-*${htjava} Sold* ${v.sold}
-*${htjava} Stock:* ${v.stock}
-*${htjava} Shop_loc:* ${v.shop_loc}
+💰 *Price:* *RP* ${v.price}
+🛒 *Sold:* ${v.sold}
+📦 *Stock:* ${v.stock}
+📍 *Shop Location:* ${v.shop_loc}
 
-*${htjava} Link_produk:*
+🔗 *Product Link:*
 ${v.link_produk}
-*${htjava} Image_cover:*
+🖼️ *Image Cover:*
 ${v.image_cover}
 
-*${htjava} Desc:* ${v.desc}
+📝 *Description:* ${v.desc}
 ${cmenua}
 `.trim()
     }).join(`\n\n*${htki} SHOPEE ${htka}*\n\n`)

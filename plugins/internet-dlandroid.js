@@ -27,12 +27,11 @@ let handler = async (m, {
                 let teks = res.map((item, index) => {
                     return `*[ RESULT ${index + 1} ]*
 
-*Title:* ${item.title}
-*Description:* ${item.description}
-*Date:* ${item.date}
-*Categories:* ${item.categories}
-*Link:* ${item.downloadLink}
-`
+📚 *Title:* ${item.title}
+📝 *Description:* ${item.description}
+📅 *Date:* ${item.date}
+🔖 *Categories:* ${item.categories}
+🔗 *Link:* ${item.downloadLink}`
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)
             } catch (e) {
@@ -45,12 +44,13 @@ let handler = async (m, {
             try {
                 let resl = await getDlandroid(inputs)
                 
-                let cap = `*Title:* ${resl.title}
-*Rating:* ${resl.rating}
-*Requires:* ${resl.requiresAndroid}
-*Size:* ${resl.fileSize}
+                let cap = `🌟 *Title:* ${resl.title}
+⭐️ *Rating:* ${resl.rating}
+📱 *Requires:* ${resl.requiresAndroid}
+💾 *Size:* ${resl.fileSize}
 
 ${wait}`
+
                 await conn.sendFile(m.chat, resl.ogImageUrl, "", cap, m)
                 await conn.sendFile(m.chat, resl.downloadLink, resl.title, null, m, true, {
                     quoted: m,
@@ -70,9 +70,9 @@ export default handler
 /* New Line */
 async function searchDlandroid(query) {
   const url = `https://dlandroid.com/?s=${encodeURIComponent(query)}`; // Ganti dengan URL pencarian yang sesuai
-
+  const proxyurl = "https://corsproxy.io/?";
   try {
-    const response = await fetch(url);
+    const response = await fetch(proxyurl + url);
     const html = await response.text();
     const $ = cheerio.load(html);
 
@@ -95,8 +95,9 @@ async function searchDlandroid(query) {
 }
 
 async function getDlandroid(url) {
+const proxyurl = "https://corsproxy.io/?";
   try {
-    const response = await fetch(url.endsWith('/download') ? url : url + '/download');
+    const response = await fetch(proxyurl + url.endsWith('/download') ? proxyurl + url : proxyurl + url + '/download');
     const html = await response.text();
     const $ = cheerio.load(html);
     

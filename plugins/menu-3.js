@@ -115,7 +115,7 @@ let handler = async (m, {
         "store": "Store Menu",
         "virus": "𐐪-〚 Virtex 〛-𐑂",
         "thnks": "Thanks To",
-        "nocategory": "No Category",
+        "nocategory": "No Category"
     }
     if (teks == "absen") tags = {
         "absen": "Absen"
@@ -607,6 +607,7 @@ ${clockStringP(usrs.premiumTime - new Date())}` : ""}
             sections
         }
         if (teks == "404") {
+        /*
             return conn.sendMessage(m.chat, listMessage, {
                 quoted: m,
                 mentions: await conn.parseMention(tek),
@@ -615,6 +616,15 @@ ${clockStringP(usrs.premiumTime - new Date())}` : ""}
                     isForwarded: true
                 }
             })
+            */
+            // Biasa
+            let sects = sections[2].rows.map((v, index ) => {
+                return `${v.title.slice(16)}
+${v.rowId}`.trim()
+            }).filter(v => v).join("\n\n")
+            
+        return conn.sendMessage(m.chat, { text: tek + "\n\n" + spas + "*[ C O M M A N D ]*\n" + sects, mentions: [m.sender] }, { quoted: m })
+        // Biasa
         }
 
         /* Info Total */
@@ -717,6 +727,7 @@ ${clockStringP(usrs.premiumTime - new Date())}` : ""}
         const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => "./src/avatar_contact.png")
 
         //------------------< MENU >----------------
+        /*
         let pusat = ["ke1", "ke2", "ke3", "ke4", "ke5", "ke6"]
         let pilih = pusat.getRandom()
         if (pilih == "ke1") {
@@ -766,6 +777,10 @@ ${clockStringP(usrs.premiumTime - new Date())}` : ""}
         // Sound
         var vn = "https://raw.githubusercontent.com/AyGemuy/HAORI-API/main/audio/bot.mp3"
         await conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [100,0,100,0,100,0,100] }, { quoted: m })
+        */
+        // Biasa
+        await conn.sendMessage(m.chat, { text: text.trim(), mentions: [m.sender] }, { quoted: m })
+        // Biasa
         
     } catch (e) {
         conn.reply(m.chat, "Maaf, menu sedang error", m)

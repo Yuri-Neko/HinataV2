@@ -4,62 +4,31 @@ import {
 import cheerio from "cheerio"
 import fetch from "node-fetch"
 
+
 let handler = async (m, {
     conn,
     args,
     usedPrefix,
+    text,
     command
 }) => {
-    let text
-    if (args.length >= 1) {
-        text = args.slice(0).join(" ")
-    } else if (m.quoted && m.quoted.text) {
-        text = m.quoted.text
-    } else throw "Input Teks"
-    await m.reply(wait)
 
-    if (command == "kapanlagiurl") {
-        let res = await scrapeUrl(text);
-        let captvid = `*Title:*
-${res[1].headline}
+    let lister = [
+        "search",
+        "url"
+    ]
 
-*Lirik:*
-${res[1].description}
+    let [feature, inputs, inputs_, inputs__, inputs___] = text.split("|")
+    if (!lister.includes(feature)) return m.reply("*Example:*\n.kapanlagi search|vpn\n\n*Pilih type yg ada*\n" + lister.map((v, index) => "  ○ " + v).join("\n"))
 
-*Url:*
-${res[1].url}
-`
-        let ytthumb = await (await conn.getFile(res[1].image.url)).data
-        let msg = await generateWAMessageFromContent(m.chat, {
-            extendedTextMessage: {
-                text: captvid,
-                jpegThumbnail: ytthumb,
-                contextInfo: {
-                    mentionedJid: [m.sender],
-                    externalAdReply: {
-                        body: "L I R I K",
-                        containsAutoReply: true,
-                        mediaType: 1,
-                        mediaUrl: res[1].url,
-                        renderLargerThumbnail: true,
-                        showAdAttribution: true,
-                        sourceId: "WudySoft",
-                        sourceType: "PDF",
-                        previewType: "PDF",
-                        sourceUrl: res[1].url,
-                        thumbnail: ytthumb,
-                        thumbnailUrl: res[1].image.url,
-                        title: htki + " K A P A N L A G I " + htka
-                    }
-                }
-            }
-        }, {
-            quoted: m
-        })
-        await conn.relayMessage(m.chat, msg.message, {})
-    } else {
-        let res = await scrapeLyrics(text);
-        let captvid = `*Title:*
+    if (lister.includes(feature)) {
+
+        if (feature == "search") {
+            if (!inputs) return m.reply("Input query link\nExample: .kapanlagi search|vpn")
+            await m.reply(wait)
+            try {
+                let res = await scrapeLyrics(inputs);
+                let captvid = `*Title:*
 ${res.title}
 
 *Lirik:*
@@ -68,39 +37,89 @@ ${res.song}
 *Url:*
 ${res.url}
 `
-        let ytthumb = await (await conn.getFile(res.thumbnail)).data
-        let msg = await generateWAMessageFromContent(m.chat, {
-            extendedTextMessage: {
-                text: captvid,
-                jpegThumbnail: ytthumb,
-                contextInfo: {
-                    mentionedJid: [m.sender],
-                    externalAdReply: {
-                        body: "L I R I K",
-                        containsAutoReply: true,
-                        mediaType: 1,
-                        mediaUrl: res.url,
-                        renderLargerThumbnail: true,
-                        showAdAttribution: true,
-                        sourceId: "WudySoft",
-                        sourceType: "PDF",
-                        previewType: "PDF",
-                        sourceUrl: res.url,
-                        thumbnail: ytthumb,
-                        thumbnailUrl: res.thumbnail,
-                        title: htki + " K A P A N L A G I " + htka
+                let ytthumb = await (await conn.getFile(res.thumbnail)).data
+                let msg = await generateWAMessageFromContent(m.chat, {
+                    extendedTextMessage: {
+                        text: captvid,
+                        jpegThumbnail: ytthumb,
+                        contextInfo: {
+                            mentionedJid: [m.sender],
+                            externalAdReply: {
+                                body: "L I R I K",
+                                containsAutoReply: true,
+                                mediaType: 1,
+                                mediaUrl: res.url,
+                                renderLargerThumbnail: true,
+                                showAdAttribution: true,
+                                sourceId: "WudySoft",
+                                sourceType: "PDF",
+                                previewType: "PDF",
+                                sourceUrl: res.url,
+                                thumbnail: ytthumb,
+                                thumbnailUrl: res.thumbnail,
+                                title: htki + " K A P A N L A G I " + htka
+                            }
+                        }
                     }
-                }
+                }, {
+                    quoted: m
+                })
+                await conn.relayMessage(m.chat, msg.message, {})
+            } catch (e) {
+                await m.reply(eror)
             }
-        }, {
-            quoted: m
-        })
-        await conn.relayMessage(m.chat, msg.message, {})
+        }
+
+        if (feature == "url") {
+            if (!inputs) return m.reply("Input query link\nExample: .kapanlagi app|link")
+            try {
+                let res = await scrapeUrl(inputs);
+                let captvid = `*Title:*
+${res[1].headline}
+
+*Lirik:*
+${res[1].description}
+
+*Url:*
+${res[1].url}
+`
+                let ytthumb = await (await conn.getFile(res[1].image.url)).data
+                let msg = await generateWAMessageFromContent(m.chat, {
+                    extendedTextMessage: {
+                        text: captvid,
+                        jpegThumbnail: ytthumb,
+                        contextInfo: {
+                            mentionedJid: [m.sender],
+                            externalAdReply: {
+                                body: "L I R I K",
+                                containsAutoReply: true,
+                                mediaType: 1,
+                                mediaUrl: res[1].url,
+                                renderLargerThumbnail: true,
+                                showAdAttribution: true,
+                                sourceId: "WudySoft",
+                                sourceType: "PDF",
+                                previewType: "PDF",
+                                sourceUrl: res[1].url,
+                                thumbnail: ytthumb,
+                                thumbnailUrl: res[1].image.url,
+                                title: htki + " K A P A N L A G I " + htka
+                            }
+                        }
+                    }
+                }, {
+                    quoted: m
+                })
+                await conn.relayMessage(m.chat, msg.message, {})
+            } catch (e) {
+                await m.reply(eror)
+            }
+        }
     }
 }
 handler.help = ["kapanlagi"]
 handler.tags = ["internet"]
-handler.command = /^kapanlagi|kapanlagiurl$/i
+handler.command = /^(kapanlagi)$/i
 export default handler
 
 /* New Line */

@@ -25,12 +25,12 @@ let handler = async (m, {
             try {
                 let res = await Search(inputs)
                 let teks = res.map((item, index) => {
-                    return `*[ RESULT ${index + 1} ]*
+                    return `🔍 *[ RESULT ${index + 1} ]*
 
-*Title:* ${item.title} ( ${item.alt} )
-*Url:* ${item.href}
-*Thumb:* ${item.image}
-*Time:* ${item.datetime}
+📝 *Title:* ${item.title} ( ${item.alt} )
+🔗 *Url:* ${item.href}
+🖼️ *Thumb:* ${item.image}
+⌚ *Time:* ${item.datetime}
 `
                 }).filter(v => v).join("\n\n________________________\n\n")
                 await m.reply(teks)

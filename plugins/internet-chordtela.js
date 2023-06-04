@@ -40,7 +40,7 @@ let handler = async (m, {
         }
 
         if (feature == "list") {
-            if (!regex.test(inputs)) return m.reply("Input query link\nExample: .chordtela list|https://www.chordtela.com/chord/adella")
+            if (!validateURL(inputs)) return m.reply("Input query link\nExample: .chordtela list|https://www.chordtela.com/chord/adella")
             await m.reply(wait)
             try {
                 let outs = await getList(inputs)
