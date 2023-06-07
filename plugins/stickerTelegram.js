@@ -1,31 +1,90 @@
-import fetch from "node-fetch"
-import { sticker } from '../lib/sticker.js'
-let handler = async (m, { conn, args, text, usedPrefix, command }) => {
-    if (!args[0]) throw `uhm.. url nya mana?\n\ncontoh:\n${usedPrefix + command} https://t.me/addstickers/namapack`
-    let packName = args[0].replace("https://t.me/addstickers/", "")
-    let gas = await fetch(`https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getStickerSet?name=${encodeURIComponent(packName)}`)
-    let json = await gas.json()
-    if (command == 'stikerteleget') {
-    let gx = await fetch('https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getFile?file_id=' + args[0])
-    let jx = await gx.json()
-  return conn.sendFile(m.chat, 'https://api.telegram.org/file/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/' + jx.result.file_path, 'sticker.webp', '', fakes, adReply, { asSticker: true })
+import cheerio from "cheerio";
+import fetch from "node-fetch";
+
+let handler = async (m, {
+    conn,
+    args,
+    usedPrefix,
+    text,
+    command
+}) => {
+
+    let lister = [
+        "search",
+        "random"
+    ]
+
+    let [feature, inputs, inputs_, inputs__, inputs___] = text.split("|")
+    if (!lister.includes(feature)) return m.reply("*Example:*\n" + usedPrefix + command + " search|vpn\n\n*Pilih type yg ada*\n" + lister.map((v, index) => "  ○ " + v).join("\n"))
+
+    if (lister.includes(feature)) {
+
+        if (feature == "search") {
+            if (!inputs) return m.reply("Input query link\nExample: " + usedPrefix + command + " search|vpn")
+            await m.reply(wait)
+            try {
+                
+                if (isNumber(inputs_)) {
+                let array = await Telesticker(inputs)
+                if (inputs_ > array.length) {
+  let maxi = `Input terlalu banyak, usahakan dibawah ${array.length}`
+  await m.reply(maxi)
+} else {
+                let randomItem = array[inputs_]
+                await conn.sendFile(m.chat, randomItem.url, "", "", m, null, adReplyS)
+                }
+                } else {
+                let array = await Telesticker(inputs)
+                let teks = array.map((item, index) => {
+                    return `🔍 [ RESULT ${index + 1} ]
+
+🔗 *url:* ${item.url}
+`
+                }).filter(v => v).join("\n\n________________________\n\n")
+                await m.reply(teks)
+                }
+            } catch (e) {
+                await m.reply(eror)
+            }
+        }
+
+        if (feature == "random") {
+        await m.reply(wait)
+            try {
+                let array = await Telesticker(inputs)
+                let randomItem = array[Math.floor(Math.random() * array.length)]
+                await conn.sendFile(m.chat, randomItem.url, "", "", m, null, adReplyS)
+            } catch (e) {
+                await m.reply(eror)
+            }
+        }
     }
-    let dapet = json.result.stickers
-	let row = Object.values(dapet).map((v, index) => ({
-		title: v.set_name,
-		description: '\n• type: ' + v.type + '\n• width: ' + v.width + '\n• height: ' + v.height + '\n• emoji: ' + v.emoji + '\n• is_animated: ' + v.is_animated + '\n• is_video: ' + v.is_video,
-		rowId: usedPrefix + 'stikerteleget ' + v.thumb.file_id
-	}))
-	let button = {
-		buttonText: `☂️ ${command} Search Disini ☂️`,
-		description: `⚡ Silakan pilih ${command} Search di tombol di bawah...\n*Teks yang anda kirim:* ${text}\n\nKetik ulang *${usedPrefix + command}* teks anda untuk mengubah teks lagi`,
-		footerText: wm
-	}
-	return await conn.sendListM(m.chat, button, row, m)
 }
-handler.help = ['stikertele <url>']
+handler.help = ['stikertele <query>']
 handler.tags = ['sticker']
-handler.command = /^(stic?kertele(gram)?|stikerteleget)$/i
+handler.command = /^(stic?kertele(gram)?)$/i
 handler.limit = 1
 
 export default handler
+
+
+/* New Line */
+function isNumber(x) {
+    return !isNaN(x)
+}
+
+async function Telesticker(query) {
+  const response = await fetch(`https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getStickerSet?name=${encodeURIComponent(query)}`);
+  const data = await response.json();
+  
+  return Promise.all(data.result.stickers.map(async sticker => {
+    const response2 = await fetch(`https://api.telegram.org/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/getFile?file_id=${sticker.thumb.file_id}`);
+    const data2 = await response2.json();
+    
+    return {
+      status: 200,
+      author: "Wudysoft",
+      url: `https://api.telegram.org/file/bot891038791:AAHWB1dQd-vi0IbH2NjKYUk-hqQ8rQuzPD4/${data2.result.file_path}`
+    };
+  }));
+}
