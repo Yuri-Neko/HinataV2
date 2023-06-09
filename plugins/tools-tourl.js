@@ -19,17 +19,7 @@ ${link}
 
 *S H O R T :* ${await shortUrl(link)}`
 
-conn.reply(m.chat, caption, m, { contextInfo: {
-          externalAdReply :{
-    mediaUrl: sig,
-    mediaType: 2,
-    description: wm, 
-    title: '👋 Hai, ' + name + ' ' + ucapan,
-    body: botdate,
-    thumbnail: await(await fetch(link)).buffer(),
-    sourceUrl: link
-     }}
-  })
+await m.reply(caption)
 }
 handler.help = ['upload','tourl']
 handler.tags = ['tools']
