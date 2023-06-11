@@ -1,103 +1,112 @@
-import puppeteer from "puppeteer"
-import cheerio from "cheerio"
-import fetch from "node-fetch"
+import cheerio from 'cheerio';
+import fetch from 'node-fetch';
 
 let handler = async (m, {
     conn,
     args,
     usedPrefix,
+    text,
     command
 }) => {
-    let text
-    if (args.length >= 1) {
-        text = args.slice(0).join(" ")
-    } else if (m.quoted && m.quoted.text) {
-        text = m.quoted.text
-    } else throw "Input Teks"
-    try {
+
+    let lister = [
+        "search",
+        "detail"
+    ]
+
+    let [feature, inputs, inputs_, inputs__, inputs___] = text.split("|")
+    if (!lister.includes(feature)) return m.reply("*Example:*\n.halodoc search|vpn\n\n*Pilih type yg ada*\n" + lister.map((v, index) => "  ○ " + v).join("\n"))
+
+    if (lister.includes(feature)) {
+
+        if (feature == "search") {
+            if (!inputs) return m.reply("Input query link\nExample: .halodoc search|vpn")
             await m.reply(wait)
-            let res = await getLink(text)
-            let rand = res.getRandom()
-            let resu = await getResult(rand)
-            let dones = await formatThis(resu.text)
-            await m.reply(dones)
-    } catch (e) {
-        throw eror
+            try {
+                let res = await searchHalodoc(inputs)
+                let teks = res.map((item, index) => {
+                    return `🔍 *[ RESULT ${index + 1} ]*
+
+  📚 Title: ${item.title}
+  🔗 Article Link: ${item.articleLink}
+  🖼️ Image Src: ${item.imageSrc}
+  ⚕️ Health Link: ${item.healthLink}
+  🏥 Health Title: ${item.healthTitle}
+  📝 Description: ${item.description}
+  `
+                }).filter(v => v).join("\n\n________________________\n\n")
+                await m.reply(teks)
+            } catch (e) {
+                await m.reply(eror)
+            }
+        }
+
+        if (feature == "detail") {
+            if (!inputs) return m.reply("Input query link\nExample: .halodoc app|link")
+            await m.reply(wait)
+            try {
+                let item = await getDetails(inputs)
+                let cap = `🔍 *[ RESULT ]*
+
+📚 Title: ${item.title}
+📝 Content: ${item.content}
+⌛ Times: ${item.times}
+✍️ Author: ${item.author}
+🔗 Link: ${item.link}
+🖼️ Image: ${item.image}
+`
+                await conn.sendFile(m.chat, item.image || logo, "", cap, m)
+                
+            } catch (e) {
+                await m.reply(eror)
+            }
+        }
     }
 }
 handler.help = ["halodoc"]
 handler.tags = ["internet"]
-handler.command = /^halodoc$/i
-
+handler.command = /^(halodoc)$/i
 export default handler
 
 /* New Line */
-function formatThis(input) {
+async function searchHalodoc(query) {
+  const url = `https://www.halodoc.com/artikel/search/${encodeURIComponent(query)}`;
 
-// regex to split text into sentences
-const sentences = input.split(/(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s/g);
+  try {
+    const response = await fetch(url);
+    const html = await response.text();
+    const $ = cheerio.load(html);
+    const articles = $('magneto-card').map((index, element) => ({
+      title: $(element).find('header a').text(),
+      articleLink: 'https://www.halodoc.com' + $(element).find('header a').attr('href'),
+      imageSrc: $(element).find('magneto-image-mapper img').attr('src'),
+      healthLink: 'https://www.halodoc.com' + $(element).find('.tag-container a').attr('href'),
+      healthTitle: $(element).find('.tag-container a').text(),
+      description: $(element).find('.description').text(),
+    })).get();
 
-// maximum number of characters per line
-const maxCharsPerLine = 60;
-
-// variable to store formatted text
-let formattedText = '';
-
-// loop through each sentence
-sentences.forEach(sentence => {
-  // split sentence into words
-  const words = sentence.split(' ');
-
-  // variable to store current line
-  let currentLine = '';
-
-  // loop through each word
-  words.forEach(word => {
-    // add word to current line
-    if (currentLine.length + word.length + 1 <= maxCharsPerLine) {
-      currentLine += `${word} `;
-    }
-    // start new line with word
-    else {
-      formattedText += `${currentLine.trim()}\n`;
-      currentLine = `${word} `;
-    }
-  });
-
-  // add last line of sentence to formatted text
-  formattedText += `${currentLine.trim()}\n`;
-});
-
-return formattedText;
+    return articles;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
 }
 
-async function getLink(input) {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto('https://www.halodoc.com/artikel/search/' + input);
-  // Extract all links on the page
-  const links = await page.$$eval('a', links => links.map(link => link.href));
-  // Filter links that start with www.halodoc.com/artikel
-  const filteredLinks = links.filter(link => link.startsWith('https://www.halodoc.com/artikel') && link !== 'https://www.halodoc.com/artikel' );
-  return filteredLinks;
-  await browser.close();
-  }
-  
-  async function getResult(input) {
-  return await fetch(input)
-  .then(response => response.text())
-  .then(html => {
+async function getDetails(url) {
+  try {
+    const response = await fetch(url);
+    const html = await response.text();
     const $ = cheerio.load(html);
-    const body = $('body');
-    const removeTags = ['script', 'style'];
-    removeTags.forEach(tag => {
-      body.find(tag).remove();
-    });
-    const text = body.text().trim();
-    const data = { text };
-    return data;
-  })
-  .catch(error => {
-    console.log(error);
-  });
-  	}
+
+    return {
+      title: $('div.wrapper div.item').text(),
+      content: $('div.article-page__article-body').text(),
+      times: $('div.article-page__article-subheadline span.article-page__reading-time').text(),
+      author: $('div.article-page__reviewer a').text(),
+      link: $('meta[property="og:url"]').attr('content') || '',
+      image: $('meta[property="og:image"]').attr('content') || ''
+    };
+  } catch (error) {
+    throw new Error(error);
+  }
+}
