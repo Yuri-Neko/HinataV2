@@ -39,8 +39,7 @@
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
-        "@adiwajshing/baileys": "github:hostinger-bot/Baileyss",
-        "@adiwajshing/keyed-db": "^0.2.4",
+        "@adiwajshing/baileys": "npm:baileys@^6.0.9",
         "@arugaz/ai2d": "*",
         "@bochilteam/scraper": "*",
         "@ibaraki-douji/pixivts": "*",
