@@ -17,9 +17,9 @@ const format = sizeFormatter()
 let handler = async (m, { conn, args, text, usedPrefix: _p, command, isROwner }) => {
     
     //Manage panel
-    const domain = "https://panel.naxybot.me"
-const apikey = "ptla_arujXKbxXtksMycgpjsJKwu7mHfjTg4rdKsd9voEG6V"
-const c_apikey = "ptlc_OuWrbBalXO8YVTuJIqh3h1cCQS7RE8hrjzmxyJFLHXS"
+    const domain = "https://vip.gilzzxd.com"
+const apikey = "ptla_QAExbyHmPK8qfZauvZj7RnI8dAQIlhphngo9xPivvnn"
+const c_apikey = "ptla_QAExbyHmPK8qfZauvZj7RnI8dAQIlhphngo9xPivvnn"
 
     const webPage = "https://joy.link/lyeepanel"
     
@@ -156,6 +156,7 @@ Gunakan dengan sebaik mungkin, simpan informasi akun karna jika hilang maka buka
                     })
                 }
             }
+            /*
             await conn.sendMessage(m.chat, {
                 text: "Berikut list user *PANEL*",
                 footer: `Page: ${res.meta.pagination.current_page}/${res.meta.pagination.total_pages}`,
@@ -163,6 +164,15 @@ Gunakan dengan sebaik mungkin, simpan informasi akun karna jika hilang maka buka
                 buttonText: `${res.meta.pagination.count} Users`,
                 sections
             })
+            */
+            let teks = sections.map((item, index) => {
+                    return `🔍 *[ RESULT ${index + 1} ]*
+
+📰 *Title:* ${item.rows[0].title}
+📝 *Description:* ${item.rows[0].description}
+`
+                }).filter(v => v).join("\n\n________________________\n\n")
+                await m.reply(teks)
         }
             break
         case "detusr": {
@@ -332,6 +342,7 @@ ${_p + command} name,desc,userId,eggId,locId,memory/disk,cpu`)
                     })
                 }
             }
+            /*
             await conn.sendMessage(m.chat, {
                 text: "Berikut list server *PANEL*",
                 footer: `Page: ${res.meta.pagination.current_page}/${res.meta.pagination.total_pages}`,
@@ -339,6 +350,15 @@ ${_p + command} name,desc,userId,eggId,locId,memory/disk,cpu`)
                 buttonText: `${res.meta.pagination.count} Servers`,
                 sections
             }, { quoted: m })
+            */
+            let teks = sections.map((item, index) => {
+                    return `🔍 *[ RESULT ${index + 1} ]*
+
+📰 *Title:* ${item.rows[0].title}
+📝 *Description:* ${item.rows[0].description}
+`
+                }).filter(v => v).join("\n\n________________________\n\n")
+                await m.reply(teks)
         }
             break
         case "detsrv": {

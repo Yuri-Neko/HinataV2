@@ -1,8 +1,4 @@
 //By Hinata
-import fs from 'fs'
-import fetch from 'node-fetch'
-import moment from 'moment-timezone'
-import knights from 'knights-canvas'
 
 export async function all(m) {
 	let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? this.user.jid : m.sender
@@ -18,37 +14,50 @@ export async function all(m) {
     if (chat.autoReply) {
     // ketika ada yang kirim anu
     if ((m.mtype === 'groupInviteMessage' || m.text.startsWith('https://chat') || m.text.startsWith('Buka tautan ini')) && !m.isBaileys && !m.isGroup) {
-        this.sendButton(m.chat, `${htjava} *Undang Bot ke Grup* ${htjava}
+        this.reply(m.chat, `${htjava} *Undang Bot ke Grup* ${htjava}
 ${dmenub} 7 Hari / Rp 5,000
 ${dmenub} 30 Hari / Rp 15,000
 ${dmenuf}
-`.trim(), wm, 'Pemilik Bot', '.owner', m)
-await this.reply(nomorown + '@s.whatsapp.net', `Ada Yang Mau Nyulik nih :v \n\ndari: @${m.sender.split("@")[0]} \n\npesan: ${m.text}`, m, { mentions: [m.sender] })
+`.trim(), m, { mentions: [m.sender] })
+await this.reply(nomorown + '@s.whatsapp.net', `Ada Yang Mau Nyulik nih :v \n\nDari: @${m.sender.split("@")[0]} \n\nPesan: ${m.text}`, m, { mentions: [m.sender] })
     }
     
     // ketika ada yang kirim anu
     if (m.mtype === 'reactionMessage') {
-    let caption = `*${htki} ᴘᴇʀʜᴀᴛɪᴀɴ ${htka}*\n*Terdeteksi* ${name} @${who.split("@")[0]} Lagi Mengirim Reaction\n*Pesan:* [ ${m.text} ]`
-    this.sendButton(m.chat, caption, wm, null, [[user.banned ? 'Pemilik Bot' : 'Menu', user.banned ? '/owner' : '/menu']], m, { mentions: this.parseMention(caption) })
+    let caption = `*Terdeteksi* @${who.split("@")[0]} Lagi Mengirim Reaction\n`
+    this.reply(m.chat, caption, m, { mentions: this.parseMention(caption) })
         }
         
     // ketika ada yang kirim anu
     if (m.mtype === 'paymentMessage') {
-    let caption = `*${htki} ᴘᴇʀʜᴀᴛɪᴀɴ ${htka}*\n*Terdeteksi* ${name} @${who.split("@")[0]} Lagi Meminta Uang :>\n*Pesan:* [ ${m.text} ]`
-    this.sendButton(m.chat, caption, wm, null, [[user.banned ? 'Pemilik Bot' : 'Menu', user.banned ? '/owner' : '/menu']], m, { mentions: this.parseMention(caption) })
+    let caption = `*Terdeteksi* @${who.split("@")[0]} Lagi Meminta Uang\n`
+    this.reply(m.chat, caption, m, { mentions: this.parseMention(caption) })
         }
     
     // ketika ada yang kirim anu
     if (m.mtype === 'productMessage') {
-    let caption = `*${htki} ᴘᴇʀʜᴀᴛɪᴀɴ ${htka}*\n*Terdeteksi* ${name} @${who.split("@")[0]} Lagi Promosi :>\n*Pesan:* [ ${m.text} ]`
-    this.sendButton(m.chat, caption, wm, null, [[user.banned ? 'Pemilik Bot' : 'Menu', user.banned ? '/owner' : '/menu']], m, { mentions: this.parseMention(caption) })
+    let caption = `*Terdeteksi* @${who.split("@")[0]} Lagi Promosi\n`
+    this.reply(m.chat, caption, m, { mentions: this.parseMention(caption) })
         }
     
     // ketika ada yang kirim anu
     if (m.mtype === 'orderMessage') {
-    let caption = `*${htki} ᴘᴇʀʜᴀᴛɪᴀɴ ${htka}*\n*${htki} ᴘᴇʀʜᴀᴛɪᴀɴ ${htka}*\n*Terdeteksi* ${name} @${who.split("@")[0]} Lagi Meng Order :>\n*Pesan:* [ ${m.text} ]`
-    this.sendButton(m.chat, caption, wm, null, [[user.banned ? 'Pemilik Bot' : 'Menu', user.banned ? '/owner' : '/menu']], m, { mentions: this.parseMention(caption) })
+    let caption = `*Terdeteksi* @${who.split("@")[0]} Lagi Meng Order\n`
+    this.reply(m.chat, caption, m, { mentions: this.parseMention(caption) })
         }
+        
+        // ketika ada yang kirim anu
+    if (m.mtype === 'pollCreationMessage') {
+    let caption = `*Terdeteksi* @${who.split("@")[0]} Lagi Polling\n`
+    this.reply(m.chat, caption, m, { mentions: this.parseMention(caption) })
+        }
+        
+        // ketika ada yang kirim anu
+    if (m.mtype === 'contactMessage' && m.mtype === 'contactsArrayMessage') {
+    let caption = `*Terdeteksi* @${who.split("@")[0]} Lagi promosi kontak\n`
+    this.reply(m.chat, caption, m, { mentions: this.parseMention(caption) })
+        }
+        
     
     // ketika ada yang kirim anu
     if (m.mtype === 'stickerMessage') {
@@ -82,8 +91,8 @@ await this.reply(nomorown + '@s.whatsapp.net', `Ada Yang Mau Nyulik nih :v \n\nd
 "Okey bot sudah aktif",
 "2, 3 tutup botol",
 "Bot aktif"]
-        let caption = `*${apsih.getRandom()}* kak ${name} @${who.split("@")[0]} 🗿`
-    this.sendButton(m.chat, caption, wm, null, [[user.banned ? 'Pemilik Bot' : 'Menu', user.banned ? '/owner' : '/menu']], m, { mentions: this.parseMention(caption) })
+        let caption = `*${apsih.getRandom()}* kak ${name} ( @${who.split("@")[0]} ) 🗿`
+    this.reply(m.chat, caption, m, { mentions: this.parseMention(caption) })
         }
     }
 

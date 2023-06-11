@@ -84,7 +84,7 @@ let handler = async (m, {
 `
                 let urlgif = item.outputImageUrl
                 await conn.sendMessage(m.chat, {
-                    video: {
+                    image: {
                         url: urlgif
                     },
                     caption: cap
@@ -173,7 +173,7 @@ async function GifToVideo(video_url) {
 }
 
 async function OptiJpeg(video_url, percent, sizes) {
-    const response = await fetch('https://ezgif.com/optijpeg?url=' + logo);
+    const response = await fetch('https://ezgif.com/optijpeg?url=' + video_url);
     const html = await response.text();
     const $ = cheerio.load(html);
 
