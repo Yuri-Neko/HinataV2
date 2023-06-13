@@ -38,7 +38,7 @@ global.APIs = {
 /*Apikey*/
 global.APIKeys = {
     "https://api.neoxr.my.id": "5VC9rvNx",
-    "https://api.lolhuman.xyz": "BrunoSobrino",
+    "https://api.lolhuman.xyz": pickRandom(["043c5de3b7cd6b1b8f2a0f90", "e1a815979e6adfc071b7eafc", "ed78c137a46873c5b8e5fe3b"]),
     "https://api.xteam.xyz": "HIRO",
     "https://api.zeks.xyz": "apivinz",
     "https://hardianto.xyz": "hardianto",
@@ -51,7 +51,7 @@ global.APIKeys = {
 }
 
 /*Lolhuman*/
-global.lolkey = "BrunoSobrino"
+global.lolkey = pickRandom(["043c5de3b7cd6b1b8f2a0f90", "e1a815979e6adfc071b7eafc", "ed78c137a46873c5b8e5fe3b"])
 /*OpenAi*/
 global.openaikey = "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"
 /*AmeApi*/
