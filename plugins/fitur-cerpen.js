@@ -1,21 +1,29 @@
-import fetch from 'node-fetch'
-import { Cerpen } from 'dhn-api'
+import {
+    Cerpen
+} from 'dhn-api'
 
-let handler = async (m, { text, usedPrefix, command }) => {
-let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-        let pp = await conn.profilePictureUrl(who).catch(_ => hwaifu.getRandom())
-        let name = await conn.getName(who)
-        let cerpen = await Cerpen()
-        let hasil = `${htki} Cerpen *${text}* ${htka}
+let handler = async (m, {
+    conn,
+    args,
+    usedPrefix,
+    text,
+    command
+}) => {
+await m.reply(wait)
+            try {
+                let item = await Cerpen()
+                let cap = `🔍 *[ RESULT ]*
 
-${cerpen}
-
-*${htjava} By:* ${author}
-`.trim()
-return conn.sendButton(m.chat, hasil, wm, logo, [['➡️Next Cerpen➡️', `${usedPrefix}${command} ${text}`]], m, fakefb)
+${item}
+`
+                await m.reply(cap)
+            } catch (e) {
+                await m.reply(eror)
+            }
 }
-handler.help = ['cerpen'].map(v => v + ' <apa>')
-handler.tags = ['edukasi']
-handler.command = /^(cerpen|cerita)$/i
-
+handler.help = ["cerpen"]
+handler.tags = ["internet"]
+handler.command = /^(cerpen)$/i
 export default handler
+
+/* New Line */

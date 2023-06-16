@@ -47,14 +47,14 @@ let handler = async (m, {
             try {
                 let resl = await getApk4all(inputs)
                 
-                let cap = `*Title:* ${resl.info.title}
-*Version:* ${resl.info.currentVersion}
-*Update:* ${resl.info.latestUpdate}
-*Rating:* ${resl.info.contentRating}
-*Requirements:* ${resl.info.requirements}
-*Size:* ${resl.download.size}
-*Guide:* ${resl.download.guide}
-*Link Full:* ${encodeURI(resl.download.linkFull)}
+                let cap = `📌 *Title:* ${resl.info.title}
+🔖 *Version:* ${resl.info.currentVersion}
+🔄 *Update:* ${resl.info.latestUpdate}
+⭐️ *Rating:* ${resl.info.contentRating}
+📋 *Requirements:* ${resl.info.requirements}
+📏 *Size:* ${resl.download.size}
+📚 *Guide:* ${resl.download.guide}
+🔗 *Link Full:* ${encodeURI(resl.download.linkFull)}
 
 ${wait}`
                 await conn.sendFile(m.chat, resl.info.ogImageUrl, "", cap, m)

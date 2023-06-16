@@ -15,7 +15,7 @@ let handler = async (m, {
     ]
 
     let [feature, inputs, inputs_, inputs__, inputs___] = text.split("|")
-    if (!lister.includes(feature)) throw "*Example:*\n.caripesan search|naruto\n\n*Pilih type yg ada*\n" + lister.map((v, index) => "  ○ " + v).join("\n")
+    if (!lister.includes(feature)) throw "*Example:*\n.caripesan pc|halo\n\n*Pilih type yg ada*\n" + lister.map((v, index) => "  ○ " + v).join("\n")
 
     if (lister.includes(feature)) {
         if (feature == "gc") {

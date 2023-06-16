@@ -815,9 +815,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://splendid-pantsuit-hare.cyclic.app/api/ephoto/" + one + "?text=" + two + "&apikey=Lann", [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://splendid-pantsuit-hare.cyclic.app/api/ephoto/" + one + "?text=" + two + "&apikey=Lann"},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }
@@ -828,9 +833,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://splendid-pantsuit-hare.cyclic.app/api/ephoto/" + one + "?text1=" + two + "&text2=" + three + "&apikey=Lann", [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://splendid-pantsuit-hare.cyclic.app/api/ephoto/" + one + "?text1=" + two + "&text2=" + three + "&apikey=Lann"},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }
@@ -841,9 +851,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://violetics.pw/api/ephoto360/" + one + "?apikey=beta&text=" + two, [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://violetics.pw/api/ephoto360/" + one + "?apikey=beta&text=" + two},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }
@@ -854,9 +869,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://violetics.pw/api/ephoto360/" + one + "?apikey=beta&text=" + two + "&text2=" + three, [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://violetics.pw/api/ephoto360/" + one + "?apikey=beta&text=" + two + "&text2=" + three},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }
@@ -867,9 +887,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://splendid-pantsuit-hare.cyclic.app/api/photooxy/" + one + "?text=" + two + "&apikey=Lann", [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://splendid-pantsuit-hare.cyclic.app/api/photooxy/" + one + "?text=" + two + "&apikey=Lann"},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }
@@ -880,9 +905,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://splendid-pantsuit-hare.cyclic.app/api/photooxy/" + one + "?text1=" + two + "&text2=" + three + "&apikey=Lann", [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://splendid-pantsuit-hare.cyclic.app/api/photooxy/" + one + "?text1=" + two + "&text2=" + three + "&apikey=Lann"},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }
@@ -893,9 +923,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://violetics.pw/api/photooxy/" + one + "?apikey=beta&text=" + two, [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://violetics.pw/api/photooxy/" + one + "?apikey=beta&text=" + two},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }
@@ -906,9 +941,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://violetics.pw/api/photooxy/" + one + "?apikey=beta&text=" + two + "&text2=" + three, [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://violetics.pw/api/photooxy/" + one + "?apikey=beta&text=" + two + "&text2=" + three},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }
@@ -919,9 +959,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://violetics.pw/api/photofunia/" + one + "?apikey=beta&text=" + two, [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://violetics.pw/api/photofunia/" + one + "?apikey=beta&text=" + two},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }
@@ -932,9 +977,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://violetics.pw/api/photofunia/" + one + "?apikey=beta&text=" + two + "&text2=" + three, [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://violetics.pw/api/photofunia/" + one + "?apikey=beta&text=" + two + "&text2=" + three},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }
@@ -945,9 +995,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://splendid-pantsuit-hare.cyclic.app/api/textpro/" + one + "?text=" + two + "&apikey=Lann", [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://splendid-pantsuit-hare.cyclic.app/api/textpro/" + one + "?text=" + two + "&apikey=Lann"},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }
@@ -958,9 +1013,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://splendid-pantsuit-hare.cyclic.app/api/textpro/" + one + "?text1=" + two + "&text2=" + three + "&apikey=Lann", [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://splendid-pantsuit-hare.cyclic.app/api/textpro/" + one + "?text1=" + two + "&text2=" + three + "&apikey=Lann"},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }
@@ -971,9 +1031,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://violetics.pw/api/textpro/" + one + "?apikey=beta&text=" + two, [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://violetics.pw/api/textpro/" + one + "?apikey=beta&text=" + two},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }
@@ -984,9 +1049,14 @@ let textprox2= ["3dgalaxy-metal",
         try {
         m.reply(wait)
         let caption = "*Result From:*\n" + two
-        await conn.sendButton(m.chat, caption, wm, "https://violetics.pw/api/textpro/" + one + "?apikey=beta&text=" + two + "&text2=" + three, [
-            ["Menu", usedPrefix + "menu"]
-        ], m, adReplyS)
+        await conn.sendMessage(m.chat, {
+        image: {
+            url: "https://violetics.pw/api/textpro/" + one + "?apikey=beta&text=" + two + "&text2=" + three},
+        caption: `Nih kak ${m.name}\n${caption}`,
+        mentions: [m.sender]
+    }, {
+        quoted: m
+    })
         } catch (e) {
         throw eror
         }

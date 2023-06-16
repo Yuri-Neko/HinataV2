@@ -1,30 +1,33 @@
 import fetch from 'node-fetch'
+import { xnxxSearch,
+  xnxxDownloader } from '../lib/scraped-downloader.js'
 
 let handler = async(m, { conn, usedPrefix, text, args, command }) => {
 
   if (command == 'xnxx') {
   if (!text) throw `Contoh penggunaan ${usedPrefix}${command} japan`
-  let links = global.API('lolhuman', '/api/xnxxsearch', { query: text }, 'apikey')
-let f = await fetch(links)
-let xx = await f.json()
-let str = xx.result
-            let listSections = []
-    Object.values(str).map((v, index) => {
-        listSections.push(["Num. " + ++index, [
-            [v.title, usedPrefix + "xnxxdl " + v.link, ""]
-        ]])
-    })
-    return conn.sendList(m.chat, htki + " 🗒️ List Xnxx " + htka, "⚡ Silakan pilih Resukt yang anda mau.", author, "[ Xnxx ]", listSections, m)
+  let res = await xnxxSearch(text)
+                let teks = res.result.map((item, index) => {
+                    return `🔍 *[ RESULT ${index + 1} ]*
+
+📚 Title: ${item.title}
+🔗 Link: ${item.link}
+📝 Summary: ${item.info}
+  `
+                }).filter(v => v).join("\n\n________________________\n\n")
+                await m.reply(teks)
     }
     
-    if (command = 'xnxxdl') {
+    if (command == 'xnxxdl') {
     if (!text) throw `Contoh penggunaan ${usedPrefix}${command} https://www.xnxx.com/video-18ctcz24/masi_pakai_seragam_biru_mainnya_di_hotel`
-	let res = await fetch(global.API('zenz', '/api/downloader/xvideos', { url: text }, 'apikey'))
-	let json = await res.json()
-	if (json.result?.message) throw json.result.message
-	let teks = '⭔ Title : '+json.result.title+'\n⭔ Duration : '+json.result.duration+'s' 
-	await m.reply('*LOADING....*')
-	conn.sendMessage(m.chat, { video: { url: json.result.files.high }, caption: teks }, { quoted: m })
+	let item = await xnxxDownloader(text)
+                let teks = `🔍 *[ RESULT ]*
+
+📚 Title: ${item.title}
+🔗 Link: ${item.URL}
+📝 Summary: ${item.info}
+  `
+	conn.sendMessage(m.chat, { video: { url: item.files.HLS || item.files.high || item.files.low }, caption: teks }, { quoted: m })
     }
     
     if (command == 'dlxnxx') {

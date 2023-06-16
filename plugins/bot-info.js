@@ -73,11 +73,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, text, command }) => {
 ⮕ ${chats.length} - Total Chats
 `.trim()
 
-    conn.sendButton(m.chat, 
-    htki + ' BOT INFO ' + htka, capti, logo, [
-[`ᴏᴡɴᴇʀ`, `${usedPrefix}owner`],
-[`ᴅᴏɴᴀᴛᴇ`, `${usedPrefix}donate`]
-], fakes, adReply)
+    await m.reply(capti)
 
 }
 handler.help = ['botinfo']
