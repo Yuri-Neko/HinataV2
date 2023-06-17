@@ -486,7 +486,7 @@ export async function handler(chatUpdate) {
                 if (!user.lbars) user.lbars = "[▒▒▒▒▒▒▒▒▒]"
                 if (!user.job) user.job = "Pengangguran"
                 if (!user.premium) user.premium = false
-                if (!user.premium) user.premiumTime = 0
+                if (!user.premiumTime) user.premiumTime = 0
                 if (!user.rtrofi) user.rtrofi = "Perunggu"
             } else
                 global.db.data.users[m.sender] = {
