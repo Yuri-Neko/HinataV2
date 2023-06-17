@@ -15,7 +15,7 @@ user.premium = true
     m.reply(`✔️ Success
 📛 *Name:* ${user.name}
 📆 *Days:* ${txt} days
-📉 *Countdown:* ${user.premiumTime - now}`)
+📉 *Countdown:* ${msToTime(user.premiumTime - now)}`)
 }
 handler.help = ['addprem [@user] <days>']
 handler.tags = ['owner']
@@ -25,3 +25,12 @@ handler.group = true
 handler.rowner = true
 
 export default handler
+
+function msToTime(duration) {
+    const milliseconds = parseInt((duration % 1000) / 100);
+    const seconds = Math.floor((duration / 1000) % 60);
+    const minutes = Math.floor((duration / (1000 * 60)) % 60);
+    const hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+    return `${hours}h ${minutes}m ${seconds}s ${milliseconds}ms`;
+}
