@@ -1,66 +1,60 @@
-import axios from "axios"
-import fetch from "node-fetch"
+import fetch from 'node-fetch'
+let timeout = 120000
+let poin = 4999
+let handler = async (m, { conn, text, command, usedPrefix }) => {
+let imgr = flaaa.getRandom()
 
-let handler = async (m, {
-    conn,
-    text,
-    args,
-    usedPrefix,
-    command
-}) => {
-var tes = await Quizz("sejarah", 1)
-var soal = await CleanText(tes.questions.structure.query.text)
-    let listSections = []
-    Object.values(tes.questions.structure.options).map((v, index) => {
-        listSections.push(["Num. " + ++index, [
-            [CleanText(v.text), usedPrefix + command, ""]
-        ]])
-    })
-    return conn.sendList(m.chat, htki + " Quizz " + htka, "SOAL:\n" + soal, author, "[ Pilih ]", listSections, m)
+    conn.quizz = conn.quizz ? conn.quizz : {}
+    let id = m.chat
+    if (!text)
+      return m.reply(
+        `Please use this command like this: ${usedPrefix}quizz easy/medium/hard`
+      );
+    if (id in conn.quizz) {
+        conn.sendButton(m.chat, 'Masih ada soal belum terjawab di chat ini', author, null, buttons, conn.quizz[id][0])
+        throw false
+    }
+    
+  let json = await quizApi(text)
+  let caption = `            *『  quizz Answers  』*\n\n📒  *quizz:* ${json[0].soal}
+  
+Timeout *${(timeout / 1000).toFixed(2)} detik*
+Ketik ${usedPrefix}quizzh untuk bantuan
+Bonus: ${poin} XP
+    `.trim()
+    conn.quizz[id] = [
+        await conn.sendButton(m.chat, caption, author, `${imgr + command}`, buttons, m),
+        json, poin,
+        setTimeout(() => {
+            if (conn.quizz[id]) conn.sendButton(m.chat, `Waktu habis!\\n\n🎋  *Answer:* ${json[0].jawaban}\n
+`, author, null, [
+                ['quizz', '/quizz']
+            ], conn.quizz[id][0])
+            delete conn.quizz[id]
+        }, timeout)
+    ]
 }
-handler.help = ["quiz"]
-handler.tags = ["game"]
-handler.command = /^(quiz)$/i
+handler.help = ['quizz']
+handler.tags = ['game']
+handler.command = /^quizz/i
+
 export default handler
 
-function CleanText(str) {
-	return str.replace(/<\/?[^>]+(>|$)/g, "");
-	}
-function getRandomId(idq) {
-  return idq[Math.floor(Math.random() * idq.length)]
-}
-
-async function Quizz(type, num) {
-    var id
-    var id_sejarah = [
-"61bed4c936538a001dfbdc31",
-"61bed8b1fafe6f001dc348f7",
-"61bedd518cddbd001da9c9f5",
-"61bee34a3282e8001dd522e8",
-"61bee3d19e4f60001e97dd8d",
-"61bee4930319e4001eeb8bb8",
-"61e675b10ac5bb001d158084",
-"61e678dd5ab680001d82ecda",
-"61e67a6a0ac5bb001d15832d",
-"61e67b9d5ab680001d82eeaf"
+const buttons = [
+    ['Hint', '/quizzh'],
+    ['Nyerah', 'menyerah']
 ]
-    if (type == "sejarah") {
-    id = await getRandomId(id_sejarah)
-    }
-    const quiz = await fetch(
-      `https://quizizz.com/api/main/quiz/${id}?source=join`
-    )
-      .then(res => res.json())
-      .catch(e => e)
 
-    if (quiz.success === false)
-      return {
-        code: /[A-Z_]+/.exec(quiz.error)[0],
-        message: quiz.message
-      }
+async function quizApi(difficulty) {
+  const response = await fetch('https://quizapi.io/api/v1/questions?apiKey=MrSORkLFSsJabARtQhyloo7574YX2dquEAchMn8x&difficulty=' + difficulty + '&limit=1');
+  const quizData = await response.json();
 
-    return {
-      quizId: id,
-      questions: quiz.data.quiz.info.questions[num]
-    }
+  const transformedData = quizData.map(({ question, answers, correct_answers }) => ({
+    soal: question,
+    hint: Object.values(answers).filter(value => value !== null),
+    jawaban: Object.entries(correct_answers)
+      .reduce((acc, [key, value]) => (value === 'true' ? answers[key.replace('_correct', '')] : acc), null)
+  }));
+
+  return transformedData;
 }
