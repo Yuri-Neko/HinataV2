@@ -29,10 +29,10 @@ let handler = (m, { conn, usedPrefix, command, text }) => {
 
 
 
-    if(conn.tembak.musuh.indexOf("🥷") === conn.tembak.tembak.indexOf("🤠")) return conn.sendButton(m.chat, pos, wm, [
+    if(conn.tembak.musuh.indexOf("🥷") === conn.tembak.tembak.indexOf("🤠")) return conn.sendButton(m.chat, pos, wm, null, [
                                                                                               ['🔫 Tembak', `${usedPrefix}koboy tembak`]             
                                                                                               ])
-    return conn.sendButton(m.chat, pos, wm, [
+    return conn.sendButton(m.chat, pos, wm, null, [
           ['←', `${usedPrefix}koboy kiri`], ['→', `${usedPrefix}koboy kanan`]
 ])
   } else if(/kanan/i.test(text)) {
@@ -64,10 +64,10 @@ let handler = (m, { conn, usedPrefix, command, text }) => {
 
 
 
-    if(conn.tembak.musuh.indexOf("🥷") === conn.tembak.tembak.indexOf("🤠")) return conn.sendButton(m.chat, pos, wm, [
+    if(conn.tembak.musuh.indexOf("🥷") === conn.tembak.tembak.indexOf("🤠")) return conn.sendButton(m.chat, pos, wm, null, [
                                                                                               ['🔫 Tembak', `${usedPrefix}koboy tembak`]             
                                                                                               ])             
-    return conn.sendButton(m.chat, pos, wm, [
+    return conn.sendButton(m.chat, pos, wm, null, [
           ['←', `${usedPrefix}koboy kiri`], ['→', `${usedPrefix}koboy kanan`]
 ])
   } else if(/tembak/i.test(text)) {
@@ -104,10 +104,10 @@ let handler = (m, { conn, usedPrefix, command, text }) => {
 
     let pos = conn.tembak.musuh.join(" ") + "\n\n\n" + conn.tembak.tembak.join(" ")
 
-    if(conn.tembak.musuh.indexOf("🥷") === conn.tembak.tembak.indexOf("🤠")) return conn.sendButton(m.chat, pos, wm, [
+    if(conn.tembak.musuh.indexOf("🥷") === conn.tembak.tembak.indexOf("🤠")) return conn.sendButton(m.chat, pos, wm, null, [
                                                                                               ['🔫 Tembak', `${usedPrefix}koboy tembak`]             
                                                                                               ])
-    return conn.sendButton(m.chat, pos, wm, [
+    return conn.sendButton(m.chat, pos, wm, null, [
           ['←', `${usedPrefix}koboy kiri`], ['→', `${usedPrefix}koboy kanan`]
 ])
   }

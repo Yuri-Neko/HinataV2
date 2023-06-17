@@ -167,7 +167,7 @@ if (!args[0]) {
 	]
     }
 ]
-
+/*
 const listMessage = {
   text: `${htjava} *INVENTORY*
 ${cmenub} *Name:* ${name}
@@ -181,6 +181,15 @@ ${cmenua}`,
   sections
 }
 await conn.sendMessage(m.chat, listMessage, { quoted: fakes })
+*/
+// Biasa
+            let sects = sections[0].rows.map((v, index ) => {
+                return `${v.title}
+${v.rowId}`.trim()
+            }).filter(v => v).join("\n\n")
+            
+        return conn.sendMessage(m.chat, { text: sects, mentions: [m.sender] }, { quoted: m })
+        // Biasa
 }
 
 if (args[0] == '1') {

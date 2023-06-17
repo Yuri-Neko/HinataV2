@@ -97,18 +97,21 @@ async function Quotly(a, b, c, d) {
             }]
         }
     }
-
-    const json = await axios.post("https://bot.lyo.su/quote/generate", obj, {
+    let json
+try {
+     json = await axios.post("https://bot.lyo.su/quote/generate", obj, {
         headers: {
             "Content-Type": "application/json"
         }
     })
-    const json2 = await axios.post("https://quote-api.up.railway.app/generate", obj, {
+    } catch (e) {
+     json = await axios.post("https://quote-api.up.railway.app/generate", obj, {
         headers: {
             "Content-Type": "application/json"
         }
     })
-    let results = json.data.result.image || json2.data.result.image
+    }
+    let results = json.data.result.image
     const buffer = Buffer.from(results, "base64")
     return buffer
 }
