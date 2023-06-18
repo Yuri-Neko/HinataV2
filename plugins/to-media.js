@@ -3,6 +3,8 @@ import uploadFile from '../lib/uploadFile.js'
 import uploadImage from '../lib/uploadImage.js'
 import { webp2png } from '../lib/webp2mp4.js'
 import fetch from 'node-fetch'
+import PDFDocument from 'pdfkit';
+import { Writable } from 'stream';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 
@@ -56,8 +58,15 @@ let q = m.quoted ? m.quoted : m
 
     let img = await q.download?.()
     // let url = await uploadImage(img)
-    let res = `https://api.lolhuman.xyz/api/convert/imgtopdf?apikey=${global.lolkey}&img=${img}`
-await conn.sendFile(m.chat, res, 'out.pdf', m, false, { mimetype: 'application/pdf', thumbnail: Buffer.alloc(0) })
+    // let res = `https://api.lolhuman.xyz/api/convert/imgtopdf?apikey=${global.lolkey}&img=${img}`
+    let res = await convertImageToPDF(img)
+await conn.sendMessage(m.chat, {
+            document: res,
+            mimetype: "application/pdf",
+            fileName: `For ${m.name}.pdf`
+        }, {
+            quoted: m
+        })
 }
 
 if (command == 'topng') {
@@ -190,3 +199,35 @@ handler.command = handler.help = ['64tofile', 'dmorse', 'emojimix3', 'emorse', '
 handler.tags = ['tools']
 
 export default handler
+
+async function convertImageToPDF(imageBuffer) {
+  return new Promise((resolve, reject) => {
+    const pdfDoc = new PDFDocument();
+    const buffers = [];
+
+    const writableStream = new Writable({
+      write(chunk, encoding, callback) {
+        buffers.push(chunk);
+        callback();
+      },
+    });
+
+    pdfDoc.on('end', () => {
+      const pdfBuffer = Buffer.concat(buffers);
+      resolve(pdfBuffer);
+    });
+
+    pdfDoc.on('error', (error) => {
+      reject(error);
+    });
+
+    pdfDoc.image(imageBuffer);
+    pdfDoc.end();
+
+    writableStream.on('error', (error) => {
+      reject(error);
+    });
+
+    pdfDoc.pipe(writableStream);
+  });
+}
