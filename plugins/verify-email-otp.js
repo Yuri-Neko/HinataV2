@@ -1,58 +1,56 @@
-import fetch from "node-fetch"
+import fetch from 'node-fetch'
 let timeout = 120000
 let poin = 4999
-let handler = async (m, {
-    conn,
-    command,
-    text,
-    usedPrefix
-}) => {
+let handler = async (m, { conn, command, text, usedPrefix }) => {
+let imgr = flaaa.getRandom()
+
     conn.emailotp = conn.emailotp ? conn.emailotp : {}
     let id = m.chat
+    if (id in conn.emailotp) {
+        conn.sendButton(m.chat, 'Masih ada soal belum terjawab di chat ini', author, null, buttons, conn.emailotp[id][0])
+        throw false
+    }
     if (!text) return m.reply(
         `Example: ${usedPrefix + command} email`
     )
-    if (id in conn.emailotp) return conn.reply(m.chat,
-        "Your OTP!",
-        conn.emailotp[id][0])
     let generateOTP = (Math.floor(Math.random() * 9000) + 1000).toString()
     let avatar = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://telegra.ph/file/a2ae6cbfa40f6eeea0cf1.jpg')
     let res = await sendEmail(author, generateOTP, conn.user.jid.split("@")[0], avatar, text)
 
     let json = {
-        code: generateOTP,
+        jawaban: generateOTP,
         soal: "Reply pesan ini dan masukkan kode OTP"
     }
     if (res.success == true) {
-        let caption = `*Request kode OTP*
-
-Untuk: ${text}
-${json.soal}
+  let caption = `*${command.toUpperCase()}*
+  ${json.soal}
 
 Timeout *${(timeout / 1000).toFixed(2)} detik*
+Ketik ${usedPrefix}hotp untuk bantuan
 Bonus: ${poin} XP
-`.trim()
-        conn.emailotp[id] = [
-            await conn.reply(m.chat,
-                caption,
-                m),
-            json, poin,
-            setTimeout(() => {
-                if (conn.emailotp[id]) conn.reply(m.chat,
-                    `Waktu habis!\nOTP: *${json.code}*`,
-                    conn.emailotp[id][0])
-                delete conn.emailotp[id]
-            }, timeout)
-        ]
-    } else {
-        conn.reply(m.chat, `*Gagal mengirim kode OTP*\nUntuk: ${text}`, m)
+    `.trim()
+    conn.emailotp[id] = [
+        await conn.sendButton(m.chat, caption, author, `${imgr + command}`, buttons, m),
+        json, poin,
+        setTimeout(() => {
+            if (conn.emailotp[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, author, null, [
+                ['emailotp', '/emailotp']
+            ], conn.emailotp[id][0])
+            delete conn.emailotp[id]
+        }, timeout)
+    ]
     }
 }
-handler.help = ["emailotp"]
-handler.tags = ["game"]
+handler.help = ['emailotp']
+handler.tags = ['game']
 handler.command = /^emailotp/i
 
 export default handler
+
+const buttons = [
+    ['Hint', '/hotp'],
+    ['Nyerah', 'menyerah']
+]
 
 async function sendEmail(Name, OTP, Number, PP, Mail) {
 let html = `<!DOCTYPE html>
