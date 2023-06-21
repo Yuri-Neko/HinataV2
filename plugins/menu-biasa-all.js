@@ -326,9 +326,13 @@ let handler = async (m, {
         const pp = await conn.profilePictureUrl(conn.user.jid).catch(_ => "./src/avatar_contact.png")
 
         //------------------< MENU >----------------
-        await conn.reply(m.chat, text, m, {
-            mentions: [m.sender]
-        })
+        let { key } = await conn.sendMessage(m.chat, { text: 'Wait...' }, { quoted: m })
+const array = [20, 40, 60, 80]
+for (let item of array) {
+  await conn.sendMessage(m.chat, { text: `Wait *${item}%*`, edit: key }, { quoted: m })
+  await new Promise(resolve => setTimeout(resolve, 2000)) // Delay 2 seconds
+}
+await conn.sendMessage(m.chat, { text: text.trim(), edit: key, mentions: [m.sender] }, { quoted: m })
 
         // Sound
         var vn = "https://raw.githubusercontent.com/AyGemuy/HAORI-API/main/audio/bot.mp3"

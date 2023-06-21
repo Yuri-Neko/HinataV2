@@ -7,7 +7,7 @@ let imgr = flaaa.getRandom()
     conn.emailotp = conn.emailotp ? conn.emailotp : {}
     let id = m.chat
     if (id in conn.emailotp) {
-        conn.sendButton(m.chat, 'Masih ada soal belum terjawab di chat ini', author, null, buttons, conn.emailotp[id][0])
+        conn.sendButton(m.chat, 'Masih ada OTP belum terjawab di chat ini', author, null, buttons, conn.emailotp[id][0])
         throw false
     }
     if (!text) return m.reply(
@@ -33,7 +33,7 @@ Bonus: ${poin} XP
         await conn.sendButton(m.chat, caption, author, `${imgr + command}`, buttons, m),
         json, poin,
         setTimeout(() => {
-            if (conn.emailotp[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, author, null, [
+            if (conn.emailotp[id]) conn.sendButton(m.chat, `Waktu habis!\nOTP adalah *${json.jawaban}*`, author, null, [
                 ['emailotp', '/emailotp']
             ], conn.emailotp[id][0])
             delete conn.emailotp[id]

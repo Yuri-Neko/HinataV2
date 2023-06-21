@@ -7,7 +7,7 @@ let handler = async (m, {
     if (!m.quoted) throw "Reply pesan yang ingin diedit"
     if (!text) throw "Tidak ada teks"
     if (!m.quoted.isBaileys) throw "Pesan tidak dikirim oleh bot!"
-    
+
     try {
         await conn.sendMessage(m.chat, {
             text: text,
@@ -28,7 +28,20 @@ let handler = async (m, {
             })
 
         } catch (e) {
-            await m.reply(eror)
+            try {
+                await conn.relayMessage(m.chat, {
+                    protocolMessage: {
+                        key: m.quoted.vM.key,
+                        type: 14,
+                        editedMessage: {
+                            conversation: text
+                        }
+                    }
+                }, {})
+
+            } catch (e) {
+                await m.reply(eror)
+            }
         }
     }
 }
@@ -40,5 +53,5 @@ handler.premium = true
 export default handler
 
 function checkTrue(input) {
-  return input === false;
+    return input === false;
 }

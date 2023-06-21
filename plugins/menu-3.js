@@ -623,7 +623,14 @@ ${clockStringP(usrs.premiumTime - new Date())}` : ""}
 ${v.rowId}`.trim()
             }).filter(v => v).join("\n\n")
             
-        return conn.sendMessage(m.chat, { text: tek + "\n\n" + spas + "*[ C O M M A N D ]*\n" + sects, mentions: [m.sender] }, { quoted: m })
+        let { key } = await conn.sendMessage(m.chat, { text: 'Wait...' }, { quoted: m })
+const array = [20, 40, 60, 80, 100]
+for (let item of array) {
+  await conn.sendMessage(m.chat, { text: `Wait *${item}%*`, edit: key }, { quoted: m })
+  await new Promise(resolve => setTimeout(resolve, 2000)) // Delay 2 seconds
+}
+
+return conn.sendMessage(m.chat, { text: tek + "\n\n" + spas + "*[ C O M M A N D ]*\n" + sects, edit: key, mentions: [m.sender] }, { quoted: m })
         // Biasa
         }
 
@@ -779,7 +786,14 @@ ${v.rowId}`.trim()
         await conn.sendMessage(m.chat, { audio: { url: vn }, seconds: fsizedoc, ptt: true, mimetype: "audio/mpeg", fileName: "vn.mp3", waveform: [100,0,100,0,100,0,100] }, { quoted: m })
         */
         // Biasa
-        await conn.sendMessage(m.chat, { text: text.trim(), mentions: [m.sender] }, { quoted: m })
+        let { key } = await conn.sendMessage(m.chat, { text: 'Wait...' }, { quoted: m })
+const array = [20, 40, 60, 80, 100]
+for (let item of array) {
+  await conn.sendMessage(m.chat, { text: `Wait *${item}%*`, edit: key }, { quoted: m })
+  await new Promise(resolve => setTimeout(resolve, 2000)) // Delay 2 seconds
+}
+await conn.sendMessage(m.chat, { text: text.trim(), edit: key, mentions: [m.sender] }, { quoted: m })
+
         // Biasa
         
     } catch (e) {
