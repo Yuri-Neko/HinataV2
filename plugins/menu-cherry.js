@@ -38,7 +38,7 @@ ${usedPrefix + command} pinterest |wibu
 • ${usedPrefix + command} igh
 • ${usedPrefix + command} iga
 `
-await conn.sendButtonVid(m.chat, logo, caption, 'Nih.mp4', 'Back', '.menulist', fakes, adReply)
+await conn.sendFile(m.chat, logo, '', caption, m)
 	}
             
 try {

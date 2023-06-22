@@ -30,7 +30,7 @@ ${usedPrefix + command} pinterest |wibu
 *List:*
 
 `
-await conn.sendButtonVid(m.chat, logo, caption, 'Nih.mp4', 'Back', '.menulist', fakes, adReply)
+await conn.sendFile(m.chat, logo, '', caption, m)
 	}
             
 try {

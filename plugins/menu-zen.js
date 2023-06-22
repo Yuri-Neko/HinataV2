@@ -493,7 +493,7 @@ ${usedPrefix + command} pinterest |wibu
 • webzone/wattpad
 • webzone/webtoons
 `
-await conn.sendButtonVid(m.chat, logo, caption, 'Nih.mp4', 'Back', '.menulist', fakes, adReply)
+await conn.sendFile(m.chat, logo, '', caption, m)
 	}
             
 try {

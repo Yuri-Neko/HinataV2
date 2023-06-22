@@ -36,7 +36,7 @@ ${usedPrefix + command} pinterest |wibu
 • ${usedPrefix + command} kpop
 • ${usedPrefix + command} random
 `
-await conn.sendButtonVid(m.chat, logo, caption, 'Nih.mp4', 'Back', '.menulist', fakes, adReply)
+await conn.sendFile(m.chat, logo, '', caption, m)
 	}
             
 try {

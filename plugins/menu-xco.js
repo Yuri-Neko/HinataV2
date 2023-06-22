@@ -214,7 +214,7 @@ ${usedPrefix + command} pinterest |wibu
 • ${usedPrefix + command} waterwriting
 • ${usedPrefix + command} webp2mp4
 `
-await conn.sendButtonVid(m.chat, logo, caption, 'Nih.mp4', 'Back', '.menulist', fakes, adReply)
+await conn.sendFile(m.chat, logo, '', caption, m)
             }
             
 try {

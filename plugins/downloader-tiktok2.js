@@ -13,7 +13,7 @@ try {
     if (!url) throw 'Can\'t download video!'
 let caption = `*Nickname:* ${nickname}
 *Description:* ${description}`
-  conn.sendButtonVid(m.chat, url, caption, author, 'To mp3', '.tomp3', fakes, adReply)
+  conn.sendFile(m.chat, url, '', caption, m)
 } catch {
 const { res } = await aiovideodl(args[0])
     const urll = res.data.url

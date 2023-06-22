@@ -69,7 +69,7 @@ ${usedPrefix + command} pinterest |wibu
 • ${usedPrefix + command} lewd
 • ${usedPrefix + command} ngif
 `
-await conn.sendButtonVid(m.chat, giflogo, caption, 'Nih.mp4', 'Back', '.menulist', fakes, adReply)
+await conn.sendFile(m.chat, giflogo, '', caption, m)
             }
             
 if (command) {

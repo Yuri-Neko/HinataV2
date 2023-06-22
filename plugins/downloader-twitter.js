@@ -21,7 +21,7 @@ if (args[1] == 'a') {
 	let res = await twitterDl(args[0])
 	for (let x = 0; x < res.media.length; x++) {
 		let caption = x === 0 ? res.caption.replace(/https:\/\/t.co\/[a-zA-Z0-9]+/gi, '').trim() : ''
-  conn.sendButtonVid(m.chat, res.media[x].url, caption, author, 'To mp3', '.tomp3', fakes, adReply)
+  conn.sendFile(m.chat, res.media[x].url, '', caption, m)
 	}
 	}
 	if (args[1] == 'b') {
@@ -46,9 +46,9 @@ let dapet = json.result.url
 await hx.fbdown(`${args[0]}`)
             .then(G => {
             let ten = `${G.HD}`
-            conn.sendButtonVid(m.chat, ten, `*desc* : ${G.desc}
+            conn.sendFile(m.chat, ten, '', `*desc* : ${G.desc}
 ━━━━━•─────────────── 
-       ⇆ㅤ◁ㅤ ❚❚ㅤ ▷ㅤ↻`, author, 'To mp3', '.tomp3', fakes, adReply)
+       ⇆ㅤ◁ㅤ ❚❚ㅤ ▷ㅤ↻`, m)
             })
             }
 	if (args[1] == 'd') {

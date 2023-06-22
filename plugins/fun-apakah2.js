@@ -42,7 +42,7 @@ let puk = await xtikporntok()
 *video:* ${lip + puk.video}`
         
         try {
-await conn.sendButtonVid(m.chat, lip + puk.video, lic, author, 'To mp3', '.tomp3', fakes, adReply)
+await conn.sendFile(m.chat, lip + puk.video, '', lic, m)
 } catch {
 throw 'Manaa Gk Adaa :>'
 }
@@ -69,7 +69,7 @@ if (command == 'xaiovideodl') {
 m.reply(wait)
 if (!text) throw `Use example .${command} link`
 let tek = await xaiovideodl(text)
-return conn.sendButtonVid(m.chat, tek.data.url, wm, author, 'To mp3', '.tomp3', fakes, adReply)
+return conn.sendFile(m.chat, tek.data.url, '', wm, m)
 }
 
 if (command == 'xpinterest') {

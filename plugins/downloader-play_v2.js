@@ -23,7 +23,7 @@ previewType: 0, thumbnail: fs.readFileSync("./thumbnail.jpg"),
 sourceUrl: `https://github.com/AyGemuy`}}})
 let res = await fetch(`https://api.dhamzxploit.my.id/api/ytplaymp4?text=${text}`)
 let json = await res.json()
-conn.sendButtonVid(m.chat, json.result.url, `*R E S U L T*`, author, 'To mp3', '.tomp3', fakes, adReply)
+conn.sendFile(m.chat, json.result.url, '', `*R E S U L T*`, m)
 }
 }catch(e){
 m.reply('*[❗INFO❗] ERROR,TIDAK DAPAT MENCARI LAGU TERSEBUT*')
