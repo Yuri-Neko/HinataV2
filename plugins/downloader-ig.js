@@ -16,7 +16,8 @@ let handler = async (m, {
     let lister = [
         "v1",
         "v2",
-        "v3"
+        "v3",
+        "v4"
 
     ]
 let spas = "                "
@@ -70,6 +71,22 @@ let spas = "                "
 
         }
         
+        if (feature == "v4") {
+            if (!inputs) return m.reply("Input query link")
+            m.reply(wait)
+                try {
+                let results = await getVideo(inputs)
+
+                let caption = `*[ I N S T A G R A M ]*`
+                let out = results
+                await m.reply(wait)
+                await conn.sendFile(m.chat, out, "", caption, m)
+            } catch (e) {
+                await m.reply(eror)
+            }
+
+        }
+        
 
     }
 }
@@ -87,3 +104,35 @@ return await got(url)
     return metaTags;
   })
   }
+  
+function b64decode(str) {
+  return atob(str.replace('_', '/').padEnd(str.length + (4 - str.length % 4) % 4, '='));
+}
+
+async function getVideo(url) {
+  if (!url.startsWith('http')) url = 'https://' + url;
+  const instagramDomains = ['https://www.instagram.com', 'https://instagram.com'];
+  if (instagramDomains.some(domain => url.toLowerCase().startsWith(domain))) {
+    url = url.split('?')[0];
+
+    try {
+      const headers = {
+        'url': url,
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
+        'origin': 'https://instavideosave.net',
+        'accept': '*/*'
+      };
+
+      const response = await fetch('https://api.instavideosave.com/allinone', { headers });
+      const { video } = await response.json();
+      const link = video?.[0]?.video;
+
+      if (link) return link;
+      throw new Error('No video link found');
+    } catch (error) {
+      return { success: false, error: error.toString() };
+    }
+  }
+
+  return { success: false, error: 'invalidUrl' };
+}

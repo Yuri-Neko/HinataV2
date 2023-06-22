@@ -624,7 +624,7 @@ ${v.rowId}`.trim()
             }).filter(v => v).join("\n\n")
             
         let { key } = await conn.sendMessage(m.chat, { text: 'Wait...' }, { quoted: m })
-const array = [20, 40, 60, 80, 100]
+const array = [20, 40, 60, 80]
 for (let item of array) {
   await conn.sendMessage(m.chat, { text: `Wait *${item}%*`, edit: key }, { quoted: m })
   await new Promise(resolve => setTimeout(resolve, 2000)) // Delay 2 seconds
@@ -787,7 +787,7 @@ return conn.sendMessage(m.chat, { text: tek + "\n\n" + spas + "*[ C O M M A N D 
         */
         // Biasa
         let { key } = await conn.sendMessage(m.chat, { text: 'Wait...' }, { quoted: m })
-const array = [20, 40, 60, 80, 100]
+const array = [20, 40, 60, 80]
 for (let item of array) {
   await conn.sendMessage(m.chat, { text: `Wait *${item}%*`, edit: key }, { quoted: m })
   await new Promise(resolve => setTimeout(resolve, 2000)) // Delay 2 seconds
