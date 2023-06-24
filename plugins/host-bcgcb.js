@@ -1,6 +1,7 @@
 import fs from 'fs'
 let handler = async (m, { conn, args }) => {
  let groups = Object.entries(conn.chats).filter(([jid, chat]) => jid.endsWith('@g.us') && chat.isChats && !chat.metadata?.read_only && !chat.metadata?.announce).map(v => v[0])
+ let imgr = flaaa.getRandom()
  let text
     if (args.length >= 1) {
         text = args.slice(0).join(" ")
@@ -9,7 +10,7 @@ let handler = async (m, { conn, args }) => {
     } else throw "Input Teks"
  for (let id of groups) {
  let member = (await conn.groupMetadata(id)).participants.map(v => v.jid)
-conn.sendButton(id, htki + ' *BROADCAST* ' + htka + '\n\n*Pesan:*\n' + text, wm, fla + 'BROADCAST', [['Owner 🎐', '.owner'],['Donasi ✨', '.donasi']], fakes, adReplyS)
+await conn.sendFile(m.chat, imgr + 'BROADCAST', '', htki + ' *BROADCAST* ' + htka + '\n\n*Pesan:*\n' + text, m)
   }
 }
 handler.command = ['bcgcb']

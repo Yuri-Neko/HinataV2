@@ -128,7 +128,6 @@ let handler = async (m, {
     })
 
     let old = performance.now()
-    await m.reply(wait)
     let neww = performance.now()
     let speed = neww - old
     let str = `- *ᴘ ɪ ɴ ɢ* -
@@ -174,7 +173,14 @@ ${readMore}
 ${'```' + Object.keys(used).map((key, _, arr) => `${key.padEnd(Math.max(...arr.map(v => v.length)), ' ')}: ${format(used[key])}`).join('\n') + '```'
 }
 `
-await m.reply(str)
+let { key } = await conn.sendMessage(m.chat, { text: wait }, { quoted: m })
+const array = [20, 40, 60, 80]
+for (let item of array) {
+  await conn.sendMessage(m.chat, { text: `${wait} *${item}%*`, edit: key }, { quoted: m })
+  await new Promise(resolve => setTimeout(resolve, 2000)) // Delay 2 seconds
+}
+await conn.sendMessage(m.chat, { text: str, edit: key, mentions: [m.sender] }, { quoted: m })
+
 }
 handler.help = ['ping', 'speed']
 handler.tags = ['info', 'tools']

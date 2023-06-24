@@ -10,20 +10,37 @@ let imgr = flaaa.getRandom()
   conn.reply(m.chat, `_Mengirim pesan broadcast ke ${chats.length} chat_`, m)
   for (let id of chats) {
   await delay(1500)
-  await conn.sendHydrated(id, "*「 Broadcast 」* \n\n" + text, wm, imgr + 'Broadcast', sgc, 'Link', null, null, [[null, null]], m)
-  if (args[0] == 'poll') {
-  await delay(1500)
-  let a = []
-  let b = text.split(/[^\w\s]/g)
-  if (!b[1]) throw 'Format\n' + usedPrefix + command + ' halo |ya|gak'
-  if (b[12]) throw 'Kebanyakan pilihan, Format\n' + usedPrefix + command + ' halo |ya|gak'
+  if (args[0] == 'polling') {
+  let a = text.split("|").slice(1)
+    if (!a[1]) throw "Format\n" + usedPrefix + command + " halo |ya|gak"
+    if (a[12]) throw "Kebanyakan pilihan, Format\n" + usedPrefix + command + " halo |ya|gak"
+    if (checkDuplicate(a)) throw "Ada kesamaan isi dalam pesan!"
+    let cap = "*Polling Request By* " + m.name + "\n*Pesan:* " + text.split("|")[0]
 
-for (let c = 1; c < b.length; c++) {
-a.push([b[c]])
-			}
-			
-			let cap = `*Polling Broadcast By* ${name}\n*Pesan:* ${text.split('|')[0]}`
-			return conn.sendPoll(m.chat, cap, a, m)
+    const pollMessage = {
+        name: cap,
+        values: a,
+        multiselect: false,
+        selectableCount: 1
+    }
+    await conn.sendMessage(id, {
+        poll: pollMessage
+    })
+  } else
+  if (args[0] == 'sharebot') {
+  if (!id.endsWith('@g.us')) {
+  await conn.relayMessage(id, {
+                    protocolMessage: {
+                        type: 11
+                    }
+                }, {})
+                } else {
+                await conn.sendContactArray(m.chat, [
+                [conn.user.jid.split("@")[0], await conn.getName(conn.user.jid), "🔥 Bot WhatsApp 🐣", "📵 Dont spam/call me 😢", "Nothing", "🇮🇩 Indonesia", "🚀 https://s.id/Cerdasin62/", "🤖 Hanya bot biasa yang kadang suka eror ☺"]
+            ], m)
+                }
+  } else {
+  await conn.sendFile(id, imgr + 'BROADCAST', '', htki + ' *BROADCAST* ' + htka + '\n\n*Pesan:*\n' + text, m)
   }
   }
   m.reply('Selesai Broadcast All Chat :)')
@@ -40,3 +57,7 @@ const more = String.fromCharCode(8206)
 const readMore = more.repeat(4001)
 const delay = time => new Promise(res => setTimeout(res, time))
 const randomID = length => randomBytes(Math.ceil(length * .5)).toString('hex').slice(0, length)
+
+function checkDuplicate(arr) {
+    return new Set(arr).size !== arr.length
+}

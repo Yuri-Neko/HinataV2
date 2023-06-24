@@ -19,7 +19,7 @@ await conn.sendMessage(m.chat, {
 	let pairs = url.substring(url.indexOf('/') + 1).split('/');
     let vendor = pairs[2].toUpperCase()
 	listSections.push([index + ' ' + cmenub + ' ' + cari.unicode_desc, [
-          ["[ " + vendor + " ]" + " " + v.vendor_version, usedPrefix + 'fetchsticker ' + v.vendor_thumb.slice(86).replace('/60/', '/240/') + ' wsf', 'Url: ' + v.vendor_url]
+          ["[ " + vendor + " ]" + " " + v.vendor_version, usedPrefix + 'fetchsticker ' + v.vendor_thumb.replace('/60/', '/240/') + ' wsf', 'Url: ' + v.vendor_url]
         ]])
 	})
 	return conn.sendList(m.chat, htki + ' 📺 Emojis 🔎 ' + htka, `${cari.unicode_desc}`, author, '☂️ Emojis Disini ☂️', listSections, m)
