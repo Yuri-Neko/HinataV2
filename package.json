@@ -40,7 +40,7 @@
     "license": "GPL-3.0-or-later",
     "dependencies": {
         "@adiwajshing/baileys": "npm:@whiskeysockets/baileys@*",
-        "@adiwajshing/keyed-db": "^0.2.4",
+        "@adiwajshing/keyed-db": "*",
         "@arugaz/ai2d": "*",
         "@bochilteam/scraper": "*",
         "@ibaraki-douji/pixivts": "*",
